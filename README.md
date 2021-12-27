@@ -23,8 +23,8 @@ This is the work i completed for my software engineering degree.
 
 |PATHS                                            | METHOD                         | 
 |:---                                             |:---                            |
-|HTTP://LOCALHOST:8080/FILMSERVICEREST/FILMS/{ID} | Get – Film by ID               |
-|HTTP://LOCALHOST:8080/FILMSERVICEREST/FILMS      |Get – All Films                 |
-|HTTP://LOCALHOST:8080/FILMSERVICEREST/FILMS      |Post – Sends/Inserts a new Film |
-|HTTP://LOCALHOST:8080/FILMSERVICEREST/FILMS/{ID} |Put – Updates a film by ID      |
-|HTTP://LOCALHOST:8080/FILMSERVICEREST/FILMS/{ID} |Delete – Deletes a film by ID   |
+|BaseURI/FILMSERVICEREST/FILMS/{ID} | Get – Film by ID               |
+|BaseURI/FILMSERVICEREST/FILMS      |Get – All Films                 |
+|BaseURI/FILMSERVICEREST/FILMS      |Post – Sends/Inserts a new Film |
+|BaseURI/FILMSERVICEREST/FILMS/{ID} |Put – Updates a film by ID      |
+|BaseURI/FILMSERVICEREST/FILMS/{ID} |Delete – Deletes a film by ID   |
