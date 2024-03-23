@@ -1,30 +1,14 @@
 package dao;
 
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
 public class ConnectFactory {
-	// Connection pooling properties 
-	private static final int MAX_LIFE = 1800000;
-	private static final int IDLE = 600000;
-	private static final int TIMEOUT_CON = 10000;
-	private static final int MINI_IDLE_CONNECTION = 5;
-	private static final int MAX_POOL = 25;
-	
-	// Database constants initializing
-	private static final String USER = "root";
-	private static final String PASSWORD = "";
-	private static final String DB_NAME = "mmuassign";
-	
-	// Generic error message 
-	private static String messageSQL = "Failed to connect to Database";
-	
-	
+	// Connection pooling properties
 	// initalizing datasource and connection objects 
 	private Connection connection;
 	private DataSource pool;
@@ -49,20 +33,16 @@ public class ConnectFactory {
 	
 	public DataSource pool() {
 		if(pool == null) {
-			
-			HikariConfig config = new HikariConfig();
-			
-			config.setJdbcUrl(String.format("jdbc:mysql://35.184.249.71:3306/%s", DB_NAME));
-			config.setUsername(USER);
-			config.setPassword(PASSWORD);
-			config.setMaximumPoolSize(MAX_POOL);
-			config.setMinimumIdle(MINI_IDLE_CONNECTION);
-			config.setConnectionTimeout(TIMEOUT_CON);
-			config.setIdleTimeout(IDLE);
-			config.setMaxLifetime(MAX_LIFE);
-			config.setDriverClassName("com.mysql.cj.jdbc.Driver");
-			
-			pool = new HikariDataSource(config);
+
+			SQLServerDataSource dataSource = new SQLServerDataSource();
+
+			dataSource.setServerName("localhost");
+			dataSource.setDatabaseName("FilmsDb");
+			dataSource.setTrustServerCertificate(false);
+			dataSource.setUser("filmsDBAdmin");
+			dataSource.setPassword("");
+
+			pool = dataSource;
 		}
 		
 		return pool;
@@ -74,8 +54,7 @@ public class ConnectFactory {
 				connection = pool().getConnection();
 				
 			} catch (SQLException SQE) {
-				throw new RuntimeException(messageSQL,SQE.fillInStackTrace());
-				
+				throw new RuntimeException("Failed connecting to SQL SERVER",SQE.fillInStackTrace());
 			}
 		}
 		return connection;

@@ -139,7 +139,7 @@ import film.FilmInfo;
 			}
 			
 			ArrayList<Film> list = new ArrayList<Film>();
-			String sql = "SELECT * FROM films limit 15 offset ?";
+			String sql = "SELECT * FROM films ORDER BY id OFFSET ? ROWS FETCH NEXT 15 ROWS ONLY";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that gets all the films in the db 
 				PreparedStatement statement = ConnectFactory.getInstance().connect().prepareStatement(sql);
