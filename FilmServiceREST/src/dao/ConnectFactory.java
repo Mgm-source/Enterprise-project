@@ -38,7 +38,7 @@ public class ConnectFactory {
 
 			dataSource.setServerName("localhost");
 			dataSource.setDatabaseName("FilmsDb");
-			dataSource.setTrustServerCertificate(false);
+			dataSource.setTrustServerCertificate(true);
 			dataSource.setUser("filmsDBAdmin");
 			dataSource.setPassword("");
 
