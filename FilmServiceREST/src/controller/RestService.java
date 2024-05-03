@@ -1,5 +1,6 @@
 package controller;
 
+import resources.ActiveMq;
 import resources.FilmRest;
 
 import jakarta.ws.rs.ApplicationPath;
@@ -12,6 +13,7 @@ public class RestService extends Application{
 	 public Set<Class<?>> getClasses() {
 	        Set<Class<?>> s = new HashSet<>();
 	        s.add(FilmRest.class);
+	        s.add(ActiveMq.class);
 	        return s;
 	    }
 }

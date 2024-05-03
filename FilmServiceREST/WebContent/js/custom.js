@@ -221,10 +221,15 @@ function createCard() {
 	let idBttn = document.createElement("button");
 	$(idBttn).attr({ type: "button", class: "btn btn-info" });
 	$(idBttn).text("Update");
+	
+	let filmImage = document.createElement("img");
+	$(filmImage).attr("class", "card-img");
+	$(filmImage).attr("src", "http://localhost:8080/tomcat.svg")
 
 	parentDiv.appendChild(headerDiv);
 	bodyDiv.appendChild(titleH5);
 	bodyDiv.appendChild(textP);
+	bodyDiv.appendChild(filmImage);
 	parentDiv.appendChild(bodyDiv);
 	ulGroup.appendChild(starslist);
 	ulGroup.appendChild(yearlist);
@@ -262,6 +267,9 @@ function createUserInput() {
 
 	let reviewInput = document.createElement("textarea");
 	$(reviewInput).attr({ class: "form-control", id: "userReview", placeholder: "Enter review", row: "10" });
+	
+	let imageInput = document.createElement("input");
+	$(imageInput).attr({class : "form-control", id:"imageInput", accept : "image/*", type : "file"});
 
 	let vaildP = document.createElement("p");
 	$(vaildP).attr("class", "validLen");
@@ -273,6 +281,7 @@ function createUserInput() {
 	groupDiv.appendChild(yearInput);
 	groupDiv.appendChild(starsInput);
 	groupDiv.appendChild(reviewInput);
+	groupDiv.appendChild(imageInput);
 	formDiv.append(groupDiv);
 
 

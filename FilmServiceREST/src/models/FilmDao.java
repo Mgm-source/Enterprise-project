@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import dao.ConnectFactory;
+import dao.connectSQLServer;
 import film.Film;
 import film.FilmInfo;
 
@@ -52,7 +52,7 @@ import film.FilmInfo;
 			String sql= "INSERT INTO films(title,year,director,stars,review) VALUES (?,?,?,?,?) ";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that assigns the film objects properties 
-				PreparedStatement statement = ConnectFactory.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
 				statement.setString(1, film.getTitle());
 				statement.setInt(2, film.getYear());
 				statement.setString(3, film.getDirector());
@@ -72,7 +72,7 @@ import film.FilmInfo;
 			String sql=	"UPDATE films SET title = ?, year = ?, director = ?, stars = ?, review = ? Where id = ?";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that assigns the film objects properties 
-				PreparedStatement statement = ConnectFactory.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
 				statement.setString(1, film.getTitle());
 				statement.setInt(2, film.getYear());
 				statement.setString(3, film.getDirector());
@@ -93,7 +93,7 @@ import film.FilmInfo;
 			String sql = "DELETE FROM films WHERE ID =?";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that deletes a film 
-				PreparedStatement statement = ConnectFactory.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
 				statement.setInt(1,id);
 				setOperation(statement.executeUpdate());
 				
@@ -110,7 +110,7 @@ import film.FilmInfo;
 			String sql = "SELECT * FROM films";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that gets all the films in the db 
-				PreparedStatement statement = ConnectFactory.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
 					int id = resultSet.getInt("id");
@@ -142,7 +142,7 @@ import film.FilmInfo;
 			String sql = "SELECT * FROM films ORDER BY id OFFSET ? ROWS FETCH NEXT 15 ROWS ONLY";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that gets all the films in the db 
-				PreparedStatement statement = ConnectFactory.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
 				statement.setInt(1,page);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
@@ -172,7 +172,7 @@ import film.FilmInfo;
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
 				   in the database that are similar to the title
 				*/
-				PreparedStatement statement = ConnectFactory.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
 				statement.setString(1, "%" + title + "%");
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
@@ -207,7 +207,7 @@ import film.FilmInfo;
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
 			 		in the database that are from a specified year
 				*/
-				PreparedStatement statement = ConnectFactory.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
 				statement.setInt(1,year);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
@@ -237,7 +237,7 @@ import film.FilmInfo;
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
 			 		in the database that are from a specified year
 				*/
-				PreparedStatement statement = ConnectFactory.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
 				statement.setInt(1,id);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {

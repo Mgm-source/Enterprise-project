@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="exploded-ear" name="FilmServiceREST:javaEEApplication exploded">
-    <output-path>$PROJECT_DIR$/build/classes/artifacts/FilmServiceREST_javaEEApplication_exploded</output-path>
-    <root id="root">
-      <element id="javaee-facet-resources" facet="FilmServiceREST/javaeeApplication/javaEEApplication" />
-    </root>
-  </artifact>
-</component>

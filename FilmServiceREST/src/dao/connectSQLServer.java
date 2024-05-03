@@ -7,26 +7,26 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
-public class ConnectFactory {
+public class connectSQLServer implements ConnectionFactory{
 	// Connection pooling properties
 	// initalizing datasource and connection objects 
 	private Connection connection;
 	private DataSource pool;
 		
 	// initalizing the gobal instance of the connection
-	private static ConnectFactory instance;
+	private static connectSQLServer instance;
 	
 	// constructor singleton No new Class
-	private ConnectFactory(){}
+	private connectSQLServer(){}
 	
 	/**
 	 * Gets an instance of the connection or creates one if one does not already exist
 	 * 
 	 * @return a new instance if one does not already exist.
 	 */
-	public static ConnectFactory getInstance() {
+	public static connectSQLServer getInstance() {
 		if(instance == null) {
-			instance = new ConnectFactory();
+			instance = new connectSQLServer();
 		}
 		return instance;
 	}

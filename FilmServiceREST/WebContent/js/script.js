@@ -281,6 +281,17 @@ function updateFilm(id) {
 	let stars = $("#userStars");
 	let year = $("#userYear");
 
+	let image = $("#imageInput");
+	
+	let formData = new FormData();
+
+	if(image[0].files.length === 1)
+	{
+		formData.append( 'image',image[0].files[0]);
+	}
+
+	fetch( BASE_URL + id, {method: "POST", body: formData});
+
 	// Add all the selected elements into an array or the declared variables up top
 	let allFields = $([]).add(title).add(director).add(review).add(stars).add(year);
 
@@ -294,7 +305,7 @@ function updateFilm(id) {
 		year = year.val();
 
 		// json object
-		let data = { title: title, director: director, review: review, stars: stars, year: year }
+		let data = { title: title, director: director, review: review, stars: stars, year: year}
 
 		$.ajax({
 			url: BASE_URL + id,
