@@ -1,6 +1,14 @@
 package resources;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
+import java.util.UUID;
+
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -34,6 +42,42 @@ public class FilmResource {
 		this.uriInfo = uriInfo;
 		this.request = request;
 		this.id = id;
+	}
+
+	@PUT
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateImage(@FormParam("img") InputStream is,@FormDataParam("img") FormDataContentDisposition fileDetails)
+	{
+		String devPath = "C:\\Users\\Munashe\\dump\\";
+		try {
+			FileOutputStream out = new FileOutputStream(devPath+fileDetails.getFileName());
+
+			int read = 0;
+
+			byte[] bytes = new byte[1024];
+	
+			try {
+				while((read = is.read(bytes)) != -1)
+				{
+					out.write(bytes,0,read);
+				}
+
+				out.flush();
+				out.close();
+
+				return Response.ok(bytes).build();
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Response.status(404).build();
 	}
 	
     @DELETE

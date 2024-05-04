@@ -282,15 +282,25 @@ function updateFilm(id) {
 	let year = $("#userYear");
 
 	let image = $("#imageInput");
-	
-	let formData = new FormData();
 
 	if(image[0].files.length === 1)
 	{
-		formData.append( 'image',image[0].files[0]);
-	}
+			var formData = new FormData();
+			let img = image[0].files[0];
+			formData.append("img",img);
+			console.log(...formData.entries());
 
-	fetch( BASE_URL + id, {method: "POST", body: formData});
+			$.ajax({
+				url: BASE_URL + id,
+				processData: false,
+				contentType: false,
+				method: "put",
+				data: formData,
+				statusCode: {
+					500: serverError, 404: () => { failedUpdate(data); }
+				}
+			});
+	}
 
 	// Add all the selected elements into an array or the declared variables up top
 	let allFields = $([]).add(title).add(director).add(review).add(stars).add(year);
