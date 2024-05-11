@@ -2,6 +2,8 @@ package resources;
 
 import java.util.Collection;
 
+import film.Film;
+import film.FilmConverter;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
@@ -14,9 +16,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Request;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-
-import film.Film;
-import film.FilmConverter;
 import models.FilmDao;
 
 @Path("/Films")
@@ -34,7 +33,7 @@ public class FilmRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllFilms() {
 		Collection<Film> film = filmDb.listFilm();
-		if (film.size() > 0) {
+		if (!film.isEmpty()) {
 			return Response.ok().entity(film).build();
 		}
 
@@ -45,7 +44,7 @@ public class FilmRest {
 	@Produces(MediaType.APPLICATION_XML)
 	public Response getAllFilmsXML() {
 		Collection<Film> film = filmDb.listFilm();
-		if (film.size() > 0) {
+		if (!film.isEmpty()) {
 			return Response.ok().entity(converter.toXML(film)).build();
 		}
 
@@ -57,7 +56,7 @@ public class FilmRest {
 	public Response getAllFilmsCSV() {
 		Collection<Film> film = filmDb.listFilm();
 
-		if (film.size() > 0) {
+		if (!film.isEmpty()) {
 
 			return Response.ok().entity(converter.toTEXT(film)).build();
 		}

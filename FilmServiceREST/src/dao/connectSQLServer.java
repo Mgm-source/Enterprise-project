@@ -1,11 +1,11 @@
 package dao;
 
-import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
+
+import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 
 public class connectSQLServer implements ConnectionFactory{
 	// Connection pooling properties
@@ -31,6 +31,7 @@ public class connectSQLServer implements ConnectionFactory{
 		return instance;
 	}
 	
+    @Override
 	public DataSource pool() {
 		if(pool == null) {
 
@@ -48,6 +49,7 @@ public class connectSQLServer implements ConnectionFactory{
 		return pool;
 	}
 	
+    @Override
 	public Connection connect() {
 		if(connection == null) {
 			try {
@@ -60,6 +62,7 @@ public class connectSQLServer implements ConnectionFactory{
 		return connection;
 	}
 	
+	@Override
 	public void disconnect() {
 		
 		if(connection != null) {

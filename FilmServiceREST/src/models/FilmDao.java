@@ -98,15 +98,15 @@ import film.FilmInfo;
 				setOperation(statement.executeUpdate());
 				
 			} catch(SQLException SQE) {
-				SQE.printStackTrace();
-				// Do not need to explicitly close the connection, the dispose function defaults when leaving blocks
+                            // Do not need to explicitly close the connection, the dispose function defaults when leaving blocks
+                            
 			}
 	
 		}
 		
 		@Override
 		public Collection<Film> listFilm() {
-			ArrayList<Film> list = new ArrayList<Film>();
+			ArrayList<Film> list = new ArrayList<>();
 			String sql = "SELECT * FROM films";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that gets all the films in the db 
@@ -138,7 +138,7 @@ import film.FilmInfo;
 				page = 0;
 			}
 			
-			ArrayList<Film> list = new ArrayList<Film>();
+			ArrayList<Film> list = new ArrayList<>();
 			String sql = "SELECT * FROM films ORDER BY id OFFSET ? ROWS FETCH NEXT 15 ROWS ONLY";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that gets all the films in the db 
@@ -165,7 +165,7 @@ import film.FilmInfo;
 		
 		@Override
 		public Collection<Film> retrieveFilm(String title) {
-			ArrayList<Film> list = new ArrayList<Film>();
+			ArrayList<Film> list = new ArrayList<>();
 			title = title.toUpperCase();
 			String sql = "SELECT * FROM films WHERE title LIKE ?";
 			try {
@@ -201,7 +201,7 @@ import film.FilmInfo;
 			 * @return requested film or films in a collection
 			 */
 		public Collection<Film> retrieveFilm(int year) {
-			ArrayList<Film> list = new ArrayList<Film>();
+			ArrayList<Film> list = new ArrayList<>();
 			String sql = "SELECT * FROM films WHERE year = ?";
 			try {
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
@@ -231,7 +231,7 @@ import film.FilmInfo;
 		
 		
 		public Collection<Film> retrieveFilmByID(int id) {
-			ArrayList<Film> list = new ArrayList<Film>();
+			ArrayList<Film> list = new ArrayList<>();
 			String sql = "SELECT * FROM films WHERE id = ?";
 			try {
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
@@ -257,6 +257,26 @@ import film.FilmInfo;
 					}
 			return list;
 			}
+
+		public void insertImageMeta(int id, String path, String ext, String desc)
+		{
+			String SQL = "insert into ImageMetadata (filmId, Path, extension, description) values (?,?,?,?)";
+			
+			try {
+				// Gets the instance of the connection and uses it to create a statement that assigns the film objects properties 
+				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(SQL);
+				statement.setInt(1, id);
+				statement.setString(2, path);
+				statement.setString(3, ext);
+				statement.setString(4, desc);
+				
+				setOperation(statement.executeUpdate());
+
+			} catch(SQLException SQE) {
+				SQE.printStackTrace();
+				// Do not need to explicitly close the connection, the dispose function defaults when leaving blocks
+				}
+		}
 
 		public int getOperation() {
 			return operation;

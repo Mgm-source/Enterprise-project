@@ -1,12 +1,12 @@
 package dao;
 
 
+import javax.sql.DataSource;
+
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import jakarta.jms.Connection;
 import jakarta.jms.JMSException;
-
-import javax.sql.DataSource;
 
 public class ConnectActiveMq {
 	
@@ -17,12 +17,12 @@ public class ConnectActiveMq {
 	private ConnectActiveMq(){}
 
 	public DataSource pool() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	public Connection connect() {
-		// TODO Auto-generated method stub
+		
 		if(connection == null )
 		{
 		
@@ -35,7 +35,7 @@ public class ConnectActiveMq {
 	        try {
 				connection = factory.createConnection(user, password);
 			} catch (JMSException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 
@@ -48,7 +48,7 @@ public class ConnectActiveMq {
 		try {
 			connection.close();
 		} catch (JMSException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

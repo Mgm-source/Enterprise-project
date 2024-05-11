@@ -3,24 +3,20 @@ package resources;
 import org.apache.activemq.command.ActiveMQTopic;
 
 import dao.ConnectActiveMq;
-import jakarta.jms.*;
+import jakarta.jms.Destination;
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
+import jakarta.jms.MessageConsumer;
+import jakarta.jms.Session;
+import jakarta.jms.TextMessage;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Request;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriInfo;
 
 @Path("/topic")
 public class ActiveMq {
-	
-	@Context
-	UriInfo uriInfo;
-	@Context
-	Request request;
-	
 	
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -35,14 +31,15 @@ public class ActiveMq {
 	        
 	        Message msg = consumer.receive();
 	        
-	        if( msg instanceof  TextMessage ) {
-                String body = ((TextMessage) msg).getText();
+	        if( msg instanceof  TextMessage textMessage ) {
+                String body = textMessage.getText();
+				sess.close();
 	        	return Response.ok().entity(body).build();
 	        }
 	        
 				
 		} catch (JMSException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			
 			

@@ -5,11 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.UUID;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
+import film.Film;
+import film.FilmConverter;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.FormParam;
@@ -21,9 +22,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Request;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-
-import film.Film;
-import film.FilmConverter;
 import models.FilmDao;
 
 public class FilmResource {
@@ -46,18 +44,19 @@ public class FilmResource {
 
 	@PUT
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response updateImage(@FormParam("img") InputStream is,@FormDataParam("img") FormDataContentDisposition fileDetails)
 	{
 		String devPath = "C:\\Users\\Munashe\\dump\\";
 		try {
 			FileOutputStream out = new FileOutputStream(devPath+fileDetails.getFileName());
-
-			int read = 0;
-
+			
 			byte[] bytes = new byte[1024];
-	
+
+			filmDb.insertImageMeta(id,fileDetails.getFileName(),fileDetails.getType(),"");
+			
+			
 			try {
+				int read;
 				while((read = is.read(bytes)) != -1)
 				{
 					out.write(bytes,0,read);
@@ -66,15 +65,13 @@ public class FilmResource {
 				out.flush();
 				out.close();
 
-				return Response.ok(bytes).build();
+				return Response.ok().build();
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return Response.status(404).build();
@@ -112,7 +109,7 @@ public class FilmResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFilm(){
     	Collection<Film> film = filmDb.retrieveFilmByID(id);
-    	if(film.size() > 0)
+    	if(!film.isEmpty())
     	{
     		return Response.ok().entity(film).build();
     	}
@@ -124,7 +121,7 @@ public class FilmResource {
     @Produces(MediaType.APPLICATION_XML)
     public Response getFilmXML(){
     	Collection<Film> film = filmDb.retrieveFilmByID(id);
-    	if(film.size() > 0)
+    	if(!film.isEmpty())
     	{
     		return Response.ok().entity(converter.toXML(film)).build();
     	}
@@ -136,7 +133,7 @@ public class FilmResource {
     @Produces("text/csv")
     public Response getFilmCSV(){
     	Collection<Film> film = filmDb.retrieveFilmByID(id);
-    	if(film.size() > 0)
+    	if(!film.isEmpty())
     	{
     		return Response.ok().entity(converter.toTEXT(film)).build();
     	}
