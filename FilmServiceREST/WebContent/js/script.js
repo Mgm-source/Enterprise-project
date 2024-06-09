@@ -347,10 +347,10 @@ function VaildateUserFilm(nodeList) {
 	// If it passes true gets put in the bool array otherwise... false. 
 	$.each(nodeList, (_key, value) => {
 		value = $(value);
-		if (value[0].id === "userTitle") { boolArr.push(checklen(value, "title", 100, 1)); }
-		if (value[0].id === "userDirector") { boolArr.push(checklen(value, "director", 100, 1)); }
+		if (value[0].id === "userTitle") { boolArr.push(checklen(value, "title", 250, 1)); }
+		if (value[0].id === "userDirector") { boolArr.push(checklen(value, "director", 250, 1)); }
 		if (value[0].id === "userReview") { boolArr.push(checklen(value, "review", 1000, 1)); }
-		if (value[0].id === "userStars") { boolArr.push(checklen(value, "stars", 100, 1)); }
+		if (value[0].id === "userStars") { boolArr.push(checklen(value, "stars", 250, 1)); }
 		if (value[0].id === "userYear") { boolArr.push(checklen(value, "year", 999, 4)); }
 
 	})

@@ -5,9 +5,6 @@ import java.io.Writer;
 import java.util.Collection;
 import java.util.Iterator;
 
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,6 +16,10 @@ import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
 
 import com.google.gson.Gson;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 public class FilmConverter implements Converter {
 	
@@ -56,16 +57,8 @@ public class FilmConverter implements Converter {
 
 	        } catch (JAXBException JXE) {
 	            JXE.printStackTrace();
-	        } catch (ParserConfigurationException PCE) {
+	        } catch (ParserConfigurationException | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException PCE) {
 				PCE.printStackTrace();
-			} catch (ClassNotFoundException CFE) {
-				CFE.printStackTrace();
-			} catch (InstantiationException IE) {
-				IE.printStackTrace();
-			} catch (IllegalAccessException IAE) {
-				IAE.printStackTrace();
-			} catch (ClassCastException CCE) {
-				CCE.printStackTrace();
 			}
 	        
 	        return null;
@@ -93,13 +86,13 @@ public class FilmConverter implements Converter {
 			sb.append(",");
 			sb.append(nextfilm.getYear());
 			sb.append(",");
-			sb.append("\""+nextfilm.getTitle()+"\"");
+			sb.append("\"").append(nextfilm.getTitle()).append("\"");
 			sb.append(",");
-			sb.append("\""+nextfilm.getStars()+"\"");
+			sb.append("\"").append(nextfilm.getStars()).append("\"");
 			sb.append(",");
-			sb.append("\""+nextfilm.getReview()+"\"");
+			sb.append("\"").append(nextfilm.getReview()).append("\"");
 			sb.append(",");
-			sb.append("\""+nextfilm.getDirector()+"\"");
+			sb.append("\"").append(nextfilm.getDirector()).append("\"");
 			
 		}
 		
