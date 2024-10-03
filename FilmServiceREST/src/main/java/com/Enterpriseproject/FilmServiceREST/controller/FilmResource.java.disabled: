@@ -1,4 +1,4 @@
-package resources;
+package controller; 
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -26,9 +26,8 @@ import models.FilmDao;
 
 public class FilmResource {
 	
-	@Context
-	UriInfo uriInfo;
-	@Context
+	URI location;
+
 	Request request;
 	// Film ID
 	int id;

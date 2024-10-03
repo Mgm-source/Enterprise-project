@@ -1,4 +1,4 @@
-package resources;
+package controller;
 
 import org.apache.activemq.command.ActiveMQTopic;
 

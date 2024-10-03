@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import dao.connectSQLServer;
+import dao.connectMariaServer;
 import film.Film;
 import film.FilmInfo;
 
@@ -29,7 +29,7 @@ import film.FilmInfo;
 		/**
 		 * Creates a new film
 		 * 
-		 * @param id
+		 * @param pkid
 		 * @param title
 		 * @param year
 		 * @param director
@@ -37,9 +37,9 @@ import film.FilmInfo;
 		 * @param review
 		 * @return Film
 		 */
-		public Film createFilm(int id, String title, int year, String director, String stars, String review) {
+		public Film createFilm(int pkid, String title, int year, String director, String stars, String review) {
 			// This method returns a film using the constructor to insert data.
-			return new Film(id, title, year, director, stars, review);
+			return new Film(pkid, title, year, director, stars, review);
 		}
 		
 		public Film createFilm(String title, int year, String director, String stars, String review) {
@@ -52,7 +52,7 @@ import film.FilmInfo;
 			String sql= "INSERT INTO films(title,year,director,stars,review) VALUES (?,?,?,?,?) ";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that assigns the film objects properties 
-				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
 				statement.setString(1, film.getTitle());
 				statement.setInt(2, film.getYear());
 				statement.setString(3, film.getDirector());
@@ -69,10 +69,10 @@ import film.FilmInfo;
 
 		@Override
 		public void updateFilm(Film film) {
-			String sql=	"UPDATE films SET title = ?, year = ?, director = ?, stars = ?, review = ? Where id = ?";
+			String sql=	"UPDATE films SET title = ?, year = ?, director = ?, stars = ?, review = ? Where pkid = ?";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that assigns the film objects properties 
-				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
 				statement.setString(1, film.getTitle());
 				statement.setInt(2, film.getYear());
 				statement.setString(3, film.getDirector());
@@ -89,12 +89,12 @@ import film.FilmInfo;
 		}
 
 		@Override
-		public void deleteFilm(int id) {
+		public void deleteFilm(int pkid) {
 			String sql = "DELETE FROM films WHERE ID =?";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that deletes a film 
-				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
-				statement.setInt(1,id);
+				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
+				statement.setInt(1,pkid);
 				setOperation(statement.executeUpdate());
 				
 			} catch(SQLException SQE) {
@@ -110,17 +110,17 @@ import film.FilmInfo;
 			String sql = "SELECT * FROM films";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that gets all the films in the db 
-				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
-					int id = resultSet.getInt("id");
+					int pkid = resultSet.getInt("pkid");
 					String title = resultSet.getString("title");
 					int year = resultSet.getInt("year");
 					String director = resultSet.getString("director");
 					String stars = resultSet.getString("stars");
 					String review = resultSet.getString("review");
 					
-					Film film = createFilm(id,title,year,director,stars,review);
+					Film film = createFilm(pkid,title,year,director,stars,review);
 					list.add(film);
 				}
 				
@@ -139,21 +139,21 @@ import film.FilmInfo;
 			}
 			
 			ArrayList<Film> list = new ArrayList<>();
-			String sql = "SELECT * FROM films ORDER BY id OFFSET ? ROWS FETCH NEXT 15 ROWS ONLY";
+			String sql = "SELECT * FROM films ORDER BY pkid OFFSET ? ROWS FETCH NEXT 15 ROWS ONLY";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that gets all the films in the db 
-				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
 				statement.setInt(1,page);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
-					int id = resultSet.getInt("id");
+					int pkid = resultSet.getInt("pkid");
 					String title = resultSet.getString("title");
 					int year = resultSet.getInt("year");
 					String director = resultSet.getString("director");
 					String stars = resultSet.getString("stars");
 					String review = resultSet.getString("review");
 					
-					Film film = createFilm(id,title,year,director,stars,review);
+					Film film = createFilm(pkid,title,year,director,stars,review);
 					list.add(film);
 				}
 			} catch(SQLException SQE) {
@@ -172,18 +172,18 @@ import film.FilmInfo;
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
 				   in the database that are similar to the title
 				*/
-				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
 				statement.setString(1, "%" + title + "%");
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
-					int id = resultSet.getInt("id");
+					int pkid = resultSet.getInt("pkid");
 					title = resultSet.getString("title");
 					int year = resultSet.getInt("year");
 					String director = resultSet.getString("director");
 					String stars = resultSet.getString("stars");
 					String review = resultSet.getString("review");
 					
-					Film film = createFilm(id,title,year,director,stars,review);
+					Film film = createFilm(pkid,title,year,director,stars,review);
 					list.add(film);
 				}
 				
@@ -207,18 +207,18 @@ import film.FilmInfo;
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
 			 		in the database that are from a specified year
 				*/
-				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
 				statement.setInt(1,year);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
-					int id = resultSet.getInt("id");
+					int pkid = resultSet.getInt("pkid");
 					String title = resultSet.getString("title");
 					year = resultSet.getInt("year");
 					String director = resultSet.getString("director");
 					String stars = resultSet.getString("stars");
 					String review = resultSet.getString("review");
 					
-					Film film = createFilm(id,title,year,director,stars,review);
+					Film film = createFilm(pkid,title,year,director,stars,review);
 					list.add(film);
 		}
 			} catch(SQLException SQE) {
@@ -230,25 +230,25 @@ import film.FilmInfo;
 
 		
 		
-		public Collection<Film> retrieveFilmByID(int id) {
+		public Collection<Film> retrieveFilmByID(int pkid) {
 			ArrayList<Film> list = new ArrayList<>();
-			String sql = "SELECT * FROM films WHERE id = ?";
+			String sql = "SELECT * FROM films WHERE pkid = ?";
 			try {
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
 			 		in the database that are from a specified year
 				*/
-				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(sql);
-				statement.setInt(1,id);
+				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
+				statement.setInt(1,pkid);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
-					id = resultSet.getInt("id");
+					pkid = resultSet.getInt("pkid");
 					String title = resultSet.getString("title");
 					int year = resultSet.getInt("year");
 					String director = resultSet.getString("director");
 					String stars = resultSet.getString("stars");
 					String review = resultSet.getString("review");
 					
-					Film film = createFilm(id,title,year,director,stars,review);
+					Film film = createFilm(pkid,title,year,director,stars,review);
 					list.add(film);
 					}
 				} catch(SQLException SQE) {
@@ -258,14 +258,14 @@ import film.FilmInfo;
 			return list;
 			}
 
-		public void insertImageMeta(int id, String path, String ext, String desc)
+		public void insertImageMeta(int pkid, String path, String ext, String desc)
 		{
 			String SQL = "insert into ImageMetadata (filmId, Path, extension, description) values (?,?,?,?)";
 			
 			try {
 				// Gets the instance of the connection and uses it to create a statement that assigns the film objects properties 
-				PreparedStatement statement = connectSQLServer.getInstance().connect().prepareStatement(SQL);
-				statement.setInt(1, id);
+				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(SQL);
+				statement.setInt(1, pkid);
 				statement.setString(2, path);
 				statement.setString(3, ext);
 				statement.setString(4, desc);

@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", startWebpage);
 
 // True restful stateless implementation only the id of a film gets added to the url
-const BASE_URL = "resources/Films/";
+const BASE_URL = "Films";
 
 function startWebpage() {
 
@@ -210,7 +210,7 @@ function idSearch(ev) {
 		// If the vaildatation passes the buttons with the class modelBtn are enabled
 		enableNode(".modelBtn");
 		$.ajax({
-			url: BASE_URL + id,
+			url: BASE_URL + "\\" + id,
 			method: "get",
 			dataType: "json",
 			success: (data) => {
@@ -238,7 +238,7 @@ function idSearchNEdit(ev) {
 		// If the vaildatation passes the buttons with the class modelBtn are enabled
 		enableNode(".modelBtn");
 		$.ajax({
-			url: BASE_URL + id,
+			url: BASE_URL + "\\" + id,
 			method: "get",
 			dataType: "json",
 			success: (data) => {
@@ -261,7 +261,7 @@ function idSearchNEdit(ev) {
 function deleteFilm(id) {
 
 	$.ajax({
-		url: BASE_URL + id,
+		url: BASE_URL + "\\" +id,
 		method: "delete",
 		success: () => { successDelete(id); },
 		statusCode: {
@@ -291,7 +291,7 @@ function updateFilm(id) {
 			console.log(...formData.entries());
 
 			$.ajax({
-				url: BASE_URL + id,
+				url: BASE_URL + "/" + id,
 				processData: false,
 				contentType: false,
 				method: "put",
@@ -318,7 +318,7 @@ function updateFilm(id) {
 		let data = { title: title, director: director, review: review, stars: stars, year: year}
 
 		$.ajax({
-			url: BASE_URL + id,
+			url: BASE_URL + "\\" + id,
 			method: "put",
 			data: data,
 			success: () => { successUpdate(data); },
@@ -509,7 +509,7 @@ function otherformat(event) {
 	// Sends a get request with an id and expects XML to be returned 
 	$.get({
 
-		url: BASE_URL + id,
+		url: BASE_URL + "/" + id,
 		method: "get",
 		dataType: "xml",
 		success: (data) => {
@@ -530,7 +530,7 @@ function otherformat(event) {
 	// Sends a get request with an id and expects CSV to be returned 
 	$.get({
 
-		url: BASE_URL + id,
+		url: BASE_URL + "/" + id,
 		method: "get",
 		headers: { Accept: 'text/csv', 'Content-Type': 'text/csv' },
 		success: (data) => {
