@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+encoding//src/film/Film.java=UTF-8
+encoding//src/wdsl/FilmWSDL.java=UTF-8
+encoding//src/wdsl/FilmWSDLService.java=UTF-8
+encoding//src/wdsl/FilmWSDLServiceLocator.java=UTF-8
+encoding//src/wdsl/FilmWSDLSoapBindingStub.java=UTF-8

@@ -50,18 +50,17 @@ public class FilmResource {
 		try {
 			FileOutputStream out = new FileOutputStream(devPath+fileDetails.getFileName());
 			
-			byte[] bytes = new byte[1024];
-
-			filmDb.insertImageMeta(id,fileDetails.getFileName(),fileDetails.getType(),"");
-			
 			
 			try {
+				byte[] bytes = new byte[1024];
 				int read;
 				while((read = is.read(bytes)) != -1)
 				{
 					out.write(bytes,0,read);
 				}
-
+				
+				filmDb.insertImageMeta(id,fileDetails.getFileName(),fileDetails.getType(),"");
+				
 				out.flush();
 				out.close();
 

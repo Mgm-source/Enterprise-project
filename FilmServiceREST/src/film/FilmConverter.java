@@ -25,6 +25,7 @@ public class FilmConverter implements Converter {
 	
 	public FilmConverter() {}
 	// option save as a dom document
+    @Override
 	public String toXML(Collection<Film> film) {
 
 	        try {
@@ -103,9 +104,7 @@ public class FilmConverter implements Converter {
 		return sb.append(columns);
 		
 	}
-		
-		
-	}
+}
 
 
 

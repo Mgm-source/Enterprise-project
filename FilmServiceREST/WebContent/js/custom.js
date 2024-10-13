@@ -150,6 +150,7 @@ function placerJson(data, node) {
 		card.find(".list-group-item-primary").text(value.stars);
 		card.find(".list-group-item-success").text(value.year);
 		card.find(".btn-info").attr("name", value.id);
+		card.find(".btn-info").attr(["src", data.url])
 
 		node.append(card[0]);
 
