@@ -1,4 +1,4 @@
-package models;
+package com.enterpriseproject.models;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,9 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import dao.connectMariaServer;
-import film.Film;
-import film.FilmInfo;
+import com.enterpriseproject.dao.connectMariaServer;
+import com.enterpriseproject.film.Film;
+import com.enterpriseproject.film.FilmInfo;
 
 	public class FilmDao implements FilmInfo{
 		// initalizing global instance var

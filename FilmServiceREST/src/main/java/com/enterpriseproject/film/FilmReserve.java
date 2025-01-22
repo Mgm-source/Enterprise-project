@@ -1,4 +1,4 @@
-package film;
+package com.enterpriseproject.film;
 
 import java.util.Collection;
 

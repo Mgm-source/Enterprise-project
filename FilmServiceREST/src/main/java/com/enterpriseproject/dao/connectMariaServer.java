@@ -1,4 +1,4 @@
-package dao;
+package com.enterpriseproject.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,14 +14,15 @@ public class connectMariaServer implements ConnectionFactory{
 	private static connectMariaServer instance;
 	
 	// constructor singleton No new Class
-	private connectMariaServer(){}
+	public connectMariaServer(){}
 	
 	/**
 	 * Gets an instance of the connection or creates one if one does not already exist
 	 * 
 	 * @return a new instance if one does not already exist.
 	 */
-	public static connectMariaServer getInstance() {
+    @Override
+	public connectMariaServer getInstance() {
 		if(instance == null) {
 			instance = new connectMariaServer();
 		}

@@ -1,4 +1,4 @@
-package film;
+package com.enterpriseproject.film;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 

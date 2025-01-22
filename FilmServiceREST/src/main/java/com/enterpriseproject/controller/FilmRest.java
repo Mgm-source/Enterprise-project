@@ -1,18 +1,20 @@
-package com.Enterpriseproject.FilmServiceREST.controller; 
+package com.enterpriseproject.controller; 
 
-import org.springframework.web.bind.annotation.RestController;
+import java.net.URI;
+import java.util.Collection;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import java.util.Collection;
-import java.net.URI;
-import org.springframework.http.ResponseEntity; 
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestParam;
-import film.Film;
-import film.FilmConverter;
-import models.FilmDao;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.enterpriseproject.film.Film;
+import com.enterpriseproject.film.FilmConverter;
+import com.enterpriseproject.models.FilmDao;
 
 @RestController
 @RequestMapping(value = "/")

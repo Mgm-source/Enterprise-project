@@ -1,8 +1,9 @@
-package controller;
+package com.enterpriseproject.controller;
 
 import org.apache.activemq.command.ActiveMQTopic;
 
-import dao.ConnectActiveMq;
+import com.enterpriseproject.dao.ConnectActiveMq;
+
 import jakarta.jms.Destination;
 import jakarta.jms.JMSException;
 import jakarta.jms.Message;

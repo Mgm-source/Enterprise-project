@@ -1,4 +1,4 @@
-package dao;
+package com.enterpriseproject.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -24,7 +24,8 @@ public class connectSQLServer implements ConnectionFactory{
 	 * 
 	 * @return a new instance if one does not already exist.
 	 */
-	public static connectSQLServer getInstance() {
+	@Override
+	public  connectSQLServer getInstance() {
 		if(instance == null) {
 			instance = new connectSQLServer();
 		}
