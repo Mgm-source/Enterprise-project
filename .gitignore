@@ -1,5 +1,5 @@
 target/
 build/
+.vscode/
 *.class
 *.jar
-*.vscode/
