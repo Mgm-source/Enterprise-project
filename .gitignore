@@ -2,4 +2,4 @@ target/
 build/
 *.class
 *.jar
-*.vscode
+*.vscode/
