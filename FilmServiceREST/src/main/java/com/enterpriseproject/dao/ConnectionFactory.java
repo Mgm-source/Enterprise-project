@@ -11,6 +11,4 @@ public interface ConnectionFactory {
 	public Connection connect();
 	
 	public void disconnect();
-
-	public ConnectionFactory getInstance();
 }

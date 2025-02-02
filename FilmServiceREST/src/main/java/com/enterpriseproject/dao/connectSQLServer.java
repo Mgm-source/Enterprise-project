@@ -12,25 +12,9 @@ public class connectSQLServer implements ConnectionFactory{
 	// initalizing datasource and connection objects 
 	private Connection connection;
 	private DataSource pool;
-		
-	// initalizing the gobal instance of the connection
-	private static connectSQLServer instance;
 	
 	// constructor singleton No new Class
 	public connectSQLServer(){}
-	
-	/**
-	 * Gets an instance of the connection or creates one if one does not already exist
-	 * 
-	 * @return a new instance if one does not already exist.
-	 */
-	@Override
-	public  connectSQLServer getInstance() {
-		if(instance == null) {
-			instance = new connectSQLServer();
-		}
-		return instance;
-	}
 	
     @Override
 	public DataSource pool() {

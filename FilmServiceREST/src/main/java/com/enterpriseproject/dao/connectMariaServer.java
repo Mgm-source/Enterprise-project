@@ -11,23 +11,9 @@ public class connectMariaServer implements ConnectionFactory{
 
 	private Connection connection;
 	private DataSource pool;
-	private static connectMariaServer instance;
 	
 	// constructor singleton No new Class
 	public connectMariaServer(){}
-	
-	/**
-	 * Gets an instance of the connection or creates one if one does not already exist
-	 * 
-	 * @return a new instance if one does not already exist.
-	 */
-    @Override
-	public connectMariaServer getInstance() {
-		if(instance == null) {
-			instance = new connectMariaServer();
-		}
-		return instance;
-	}
 	
     @Override
 	public DataSource pool() {
