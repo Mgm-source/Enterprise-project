@@ -1,47 +1,59 @@
-package controller; 
+package com.enterpriseproject.controller; 
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Collection;
 
-import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
-import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import film.Film;
-import film.FilmConverter;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.FormParam;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.PUT;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Request;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.UriInfo;
-import models.FilmDao;
+import com.enterpriseproject.film.Film;
+import com.enterpriseproject.film.FilmConverter;
+import com.enterpriseproject.models.FilmDao;
 
+@RestController
+@RequestMapping(value = "Films/{id}")
 public class FilmResource {
-	
-	URI location;
 
-	Request request;
-	// Film ID
-	int id;
-	
 	FilmDao filmDb = FilmDao.getDao();
 	FilmConverter converter = new FilmConverter();
 
-	public FilmResource(UriInfo uriInfo, Request request, int id) {
-		this.uriInfo = uriInfo;
-		this.request = request;
-		this.id = id;
+	@DeleteMapping
+	public ResponseEntity<String> deleteFilm(@PathVariable int id) {
+
+		filmDb.deleteFilm(id);
+    	if(filmDb.getOperation() == 1) 
+    	{
+    		 return ResponseEntity.noContent().build();
+    	}
+    	return ResponseEntity.status(404).build();
 	}
 
-	@PUT
+	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<String> getFilmXML(@PathVariable String id) {
+    	Collection<Film> film = FilmDao.getDao().retrieveFilm(id);
+    	if(!film.isEmpty())
+    	{
+    		return ResponseEntity.ok().body(converter.toXML(film));
+    	}
+    	
+    	return ResponseEntity.status(404).build();
+    }
+    
+	@GetMapping(produces = "text/csv")
+	public ResponseEntity<String> getFilmCSV(@PathVariable String id) {
+    	Collection<Film> film = FilmDao.getDao().retrieveFilm(id);
+    	if(!film.isEmpty())
+    	{
+    		return ResponseEntity.ok().body(converter.toTEXT(film));
+    	}
+    	
+    	return ResponseEntity.status(404).build();
+    } 
+	/* @PUT
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response updateImage(@FormParam("img") InputStream is,@FormDataParam("img") FormDataContentDisposition fileDetails)
 	{
@@ -75,18 +87,6 @@ public class FilmResource {
 		}
 		return Response.status(404).build();
 	}
-	
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response deleteFilm(){
-    	filmDb.deleteFilm(id);
-    	if(filmDb.getOperation() == 1) 
-    	{
-    		 return Response.noContent().build();
-    	}
-    	return Response.status(404).build();
-    	
-    }
     
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
@@ -116,27 +116,5 @@ public class FilmResource {
     	return Response.status(404).build();
     }
     
-    @GET
-    @Produces(MediaType.APPLICATION_XML)
-    public Response getFilmXML(){
-    	Collection<Film> film = filmDb.retrieveFilmByID(id);
-    	if(!film.isEmpty())
-    	{
-    		return Response.ok().entity(converter.toXML(film)).build();
-    	}
-    	
-    	return Response.status(404).build();
-    }
-    
-    @GET
-    @Produces("text/csv")
-    public Response getFilmCSV(){
-    	Collection<Film> film = filmDb.retrieveFilmByID(id);
-    	if(!film.isEmpty())
-    	{
-    		return Response.ok().entity(converter.toTEXT(film)).build();
-    	}
-    	
-    	return Response.status(404).build();
-    }
+*/
 }

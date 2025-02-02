@@ -6,17 +6,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.enterpriseproject.dao.connectMariaServer;
+import com.enterpriseproject.dao.ConnectionFactory;
+import com.enterpriseproject.dao.connectSQLServer;
 import com.enterpriseproject.film.Film;
 import com.enterpriseproject.film.FilmInfo;
 
 	public class FilmDao implements FilmInfo{
 		// initalizing global instance var
 		private static FilmDao instance;
-		
+
+		private final ConnectionFactory connectionFactory;
+
 		private int operation = 0;
 		
-		private FilmDao() {}
+		private FilmDao() {
+
+			connectSQLServer cf = new connectSQLServer();
+			connectionFactory = cf.getInstance();
+		}
 		// Singleton FilmDao 
 		
 		public static FilmDao getDao() {
@@ -52,7 +59,7 @@ import com.enterpriseproject.film.FilmInfo;
 			String sql= "INSERT INTO films(title,year,director,stars,review) VALUES (?,?,?,?,?) ";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that assigns the film objects properties 
-				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectionFactory.getInstance().connect().prepareStatement(sql);
 				statement.setString(1, film.getTitle());
 				statement.setInt(2, film.getYear());
 				statement.setString(3, film.getDirector());
@@ -72,13 +79,13 @@ import com.enterpriseproject.film.FilmInfo;
 			String sql=	"UPDATE films SET title = ?, year = ?, director = ?, stars = ?, review = ? Where pkid = ?";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that assigns the film objects properties 
-				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectionFactory.getInstance().connect().prepareStatement(sql);
 				statement.setString(1, film.getTitle());
 				statement.setInt(2, film.getYear());
 				statement.setString(3, film.getDirector());
 				statement.setString(4, film.getStars());
 				statement.setString(5, film.getReview());
-				statement.setInt(6, film.getId());
+				statement.setInt(6, film.getPkid());
 			
 				setOperation(statement.executeUpdate());
 			
@@ -90,16 +97,16 @@ import com.enterpriseproject.film.FilmInfo;
 
 		@Override
 		public void deleteFilm(int pkid) {
-			String sql = "DELETE FROM films WHERE ID =?";
+			String sql = "DELETE FROM films WHERE pkid =?";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that deletes a film 
-				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectionFactory.getInstance().connect().prepareStatement(sql);
 				statement.setInt(1,pkid);
 				setOperation(statement.executeUpdate());
 				
 			} catch(SQLException SQE) {
                             // Do not need to explicitly close the connection, the dispose function defaults when leaving blocks
-                            
+							SQE.printStackTrace();   
 			}
 	
 		}
@@ -110,7 +117,7 @@ import com.enterpriseproject.film.FilmInfo;
 			String sql = "SELECT * FROM films";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that gets all the films in the db 
-				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectionFactory.getInstance().connect().prepareStatement(sql);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
 					int pkid = resultSet.getInt("pkid");
@@ -142,7 +149,7 @@ import com.enterpriseproject.film.FilmInfo;
 			String sql = "SELECT * FROM films ORDER BY pkid OFFSET ? ROWS FETCH NEXT 15 ROWS ONLY";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that gets all the films in the db 
-				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectionFactory.getInstance().connect().prepareStatement(sql);
 				statement.setInt(1,page);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
@@ -172,7 +179,7 @@ import com.enterpriseproject.film.FilmInfo;
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
 				   in the database that are similar to the title
 				*/
-				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectionFactory.getInstance().connect().prepareStatement(sql);
 				statement.setString(1, "%" + title + "%");
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
@@ -207,7 +214,7 @@ import com.enterpriseproject.film.FilmInfo;
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
 			 		in the database that are from a specified year
 				*/
-				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectionFactory.getInstance().connect().prepareStatement(sql);
 				statement.setInt(1,year);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
@@ -237,7 +244,7 @@ import com.enterpriseproject.film.FilmInfo;
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
 			 		in the database that are from a specified year
 				*/
-				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(sql);
+				PreparedStatement statement = connectionFactory.getInstance().connect().prepareStatement(sql);
 				statement.setInt(1,pkid);
 				ResultSet resultSet = statement.executeQuery();
 				while(resultSet.next()) {
@@ -264,7 +271,7 @@ import com.enterpriseproject.film.FilmInfo;
 			
 			try {
 				// Gets the instance of the connection and uses it to create a statement that assigns the film objects properties 
-				PreparedStatement statement = connectMariaServer.getInstance().connect().prepareStatement(SQL);
+				PreparedStatement statement = connectionFactory.getInstance().connect().prepareStatement(SQL);
 				statement.setInt(1, pkid);
 				statement.setString(2, path);
 				statement.setString(3, ext);

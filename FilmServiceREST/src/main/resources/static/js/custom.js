@@ -149,7 +149,7 @@ function placerJson(data, node) {
 		card.find(".card-text").text(value.review)
 		card.find(".list-group-item-primary").text(value.stars);
 		card.find(".list-group-item-success").text(value.year);
-		card.find(".btn-info").attr("name", value.id);
+		card.find(".btn-info").attr("name", value.pkid);
 
 		node.append(card[0]);
 
@@ -172,7 +172,7 @@ function placerXML(element, data, node) {
 		let director = $(this).find("director");
 		let review = $(this).find("review");
 		let stars = $(this).find("stars");
-		let id = $(this).find("id");
+		let id = $(this).find("pkid");
 		let year = $(this).find("year");
 
 		card.find(".card-header").text(title[0].textContent);

@@ -17,7 +17,7 @@ public class connectSQLServer implements ConnectionFactory{
 	private static connectSQLServer instance;
 	
 	// constructor singleton No new Class
-	private connectSQLServer(){}
+	public connectSQLServer(){}
 	
 	/**
 	 * Gets an instance of the connection or creates one if one does not already exist

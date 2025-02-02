@@ -1,10 +1,9 @@
 package com.enterpriseproject.film;
-
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Film {
-	private int id;
+	private int pkid;
 	private String title;
 	private int year;
 	private String director;
@@ -13,12 +12,12 @@ public class Film {
 	
 	public Film() {}
 
-	public int getId() {
-		return id;
+	public int getPkid() {
+		return pkid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setPkid(int pkid) {
+		this.pkid = pkid;
 	}
 
 	public String getTitle() {
@@ -61,8 +60,8 @@ public class Film {
 		this.review = review;
 	}
 	
-	public Film(int id, String title, int year, String director, String stars, String review) {
-		this.id=id;
+	public Film(int pkid, String title, int year, String director, String stars, String review) {
+		this.pkid=pkid;
 		this.title=title;
 		this.year=year;
 		this.director=director;
@@ -80,7 +79,7 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "Film [id=" + id + ", title=" + title + ", year=" + year + ", director=" + director + ", stars="
+		return "Film [pkid=" + pkid + ", title=" + title + ", year=" + year + ", director=" + director + ", stars="
 				+ stars + ", review=" + review + "]";
 	}
 

@@ -25,6 +25,7 @@ public class FilmConverter implements Converter {
 	
 	public FilmConverter() {}
 	// option save as a dom document
+        @Override
 	public String toXML(Collection<Film> film) {
 
 	        try {
@@ -77,12 +78,12 @@ public class FilmConverter implements Converter {
 		
 		Iterator<Film> iterator = film.iterator();
 		StringBuffer sb = new StringBuffer();
-		csvColumns("id,year,title,stars,review,director",sb);
+		csvColumns("pkid,year,title,stars,review,director",sb);
 		
 		while(iterator.hasNext()) {
 			Film nextfilm = iterator.next();
 			sb.append("\n");
-			sb.append(nextfilm.getId());
+			sb.append(nextfilm.getPkid());
 			sb.append(",");
 			sb.append(nextfilm.getYear());
 			sb.append(",");

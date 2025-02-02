@@ -17,13 +17,13 @@ import com.enterpriseproject.film.FilmConverter;
 import com.enterpriseproject.models.FilmDao;
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "Films")
 public class FilmRest {
 
 	FilmDao filmDb = FilmDao.getDao();
 	FilmConverter converter = new FilmConverter();
 
-	@GetMapping(value = "/Films", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getAllFilms() {
 		Collection<Film> film = filmDb.listFilm();
 		if (!film.isEmpty()) {
@@ -33,7 +33,7 @@ public class FilmRest {
 		return ResponseEntity.status(404).build();
 	}
 
-	@GetMapping(value = "/Films", produces = MediaType.APPLICATION_XML_VALUE)
+	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<String> getAllFilmsXML() {
 		Collection<Film> film = filmDb.listFilm();
 		if (!film.isEmpty()) {
@@ -43,7 +43,7 @@ public class FilmRest {
 		return ResponseEntity.status(404).build();
 	}
 
-	@GetMapping(value = "/Films", produces = "text/csv")
+	@GetMapping(produces = "text/csv")
 	public ResponseEntity<String> getAllFilmsCSV() {
 		Collection<Film> film = filmDb.listFilm();
 
@@ -55,17 +55,17 @@ public class FilmRest {
 		return ResponseEntity.status(404).build();
 	}
 
-	@PostMapping(value = "/Films", produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public ResponseEntity<String> insertFilm(@RequestParam(value="title") String title, @RequestParam(value="year") int year,
-			@RequestParam(value="director") String director, @RequestParam(value="stars") String stars,
-			@RequestParam(value="review") String review) {
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public ResponseEntity<String> insertFilm(@RequestParam String title, @RequestParam int year,
+			@RequestParam String director, @RequestParam String stars,
+			@RequestParam String review) {
 		Film film = filmDb.createFilm(title, year, director, stars, review);
 		filmDb.insertFilm(film);
 		
 		URI location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
-                    .buildAndExpand(film.getId())
+                    .buildAndExpand(film.getPkid())
                     .toUri();
 
 		String json = "{title:" + "\"" + film.getTitle() + "\"" + "}";
@@ -76,10 +76,5 @@ public class FilmRest {
 		return ResponseEntity.status(404).build();
 
 	}
-/*
-	@GetMapping("/Films/{id}")
-	public FilmResource getFilm(@RequestParam(value ="id") int id) {
-		return new FilmResource(location, request, id);
-	}
-*/
+
 }
