@@ -1,6 +1,5 @@
 package com.enterpriseproject.controller; 
 
-import java.net.URI;
 import java.util.Collection;
 
 import org.springframework.http.MediaType;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.enterpriseproject.film.Film;
 import com.enterpriseproject.film.FilmConverter;
@@ -62,16 +60,9 @@ public class FilmRest {
 		Film film = filmDb.createFilm(title, year, director, stars, review);
 		filmDb.insertFilm(film);
 		
-		URI location = ServletUriComponentsBuilder
-                    .fromCurrentRequest()
-                    .path("/{id}")
-                    .buildAndExpand(film.getPkid())
-                    .toUri();
-
-		String json = "{title:" + "\"" + film.getTitle() + "\"" + "}";
 
 		if (filmDb.getOperation() == 1) {
-			return ResponseEntity.created(location).body(json);
+			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.status(404).build();
 

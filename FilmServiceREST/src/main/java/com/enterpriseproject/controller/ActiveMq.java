@@ -1,6 +1,10 @@
 package com.enterpriseproject.controller;
 
 import org.apache.activemq.command.ActiveMQTopic;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.enterpriseproject.dao.ConnectActiveMq;
 
@@ -10,22 +14,19 @@ import jakarta.jms.Message;
 import jakarta.jms.MessageConsumer;
 import jakarta.jms.Session;
 import jakarta.jms.TextMessage;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
 
-@Path("/topic")
+@RestController
+@RequestMapping(value = "Topic")
 public class ActiveMq {
 	
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public Response getAll() {
+	@GetMapping(produces = "text/pain")
+	public ResponseEntity<String> getAll() {
 		
+		ConnectActiveMq activeq = new ConnectActiveMq().getActiveMq();
+
 		try {
-			ConnectActiveMq.getInstance().connect().start();
-			Session sess = ConnectActiveMq.getInstance().connect().createSession(false, Session.AUTO_ACKNOWLEDGE);
+			activeq.connect().start();
+			Session sess = activeq.connect().createSession(false, Session.AUTO_ACKNOWLEDGE);
 	        Destination dest = new ActiveMQTopic("event");
 
 	        MessageConsumer consumer = sess.createConsumer(dest);
@@ -35,7 +36,7 @@ public class ActiveMq {
 	        if( msg instanceof  TextMessage textMessage ) {
                 String body = textMessage.getText();
 				sess.close();
-	        	return Response.ok().entity(body).build();
+	        	return ResponseEntity.ok().body(body);
 	        }
 	        
 				
@@ -50,7 +51,7 @@ public class ActiveMq {
 			e.printStackTrace();
 		}
 		
-		ConnectActiveMq.getInstance().disconnect();
-		return Response.status(404).build();
+		activeq.disconnect();
+		return ResponseEntity.status(404).build();
 	}
 }

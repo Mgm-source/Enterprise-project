@@ -5,16 +5,44 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 
-public class connectSQLServer implements ConnectionFactory{
+@Configuration
+public class connectSQLServer implements ConnectionFactory {
 	// Connection pooling properties
 	// initalizing datasource and connection objects 
 	private Connection connection;
 	private DataSource pool;
+	static private connectSQLServer instance;
+
+	@Value("${sqlserver.servername}")
+	private String serverName;
+	@Value("${sqlserver.databasename}")
+	private String databaseName;
+	@Value("${sqlserver.trustcert}")
+	private Boolean trustServer;
+	@Value("${sqlserver.user}")
+	private String user;
+	@Value("${sqlserver.password}")
+	private String password;
 	
 	// constructor singleton No new Class
-	public connectSQLServer(){}
+	protected  connectSQLServer(){}
+
+	@Bean
+	public static connectSQLServer getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new connectSQLServer();
+		}
+
+		return instance;
+	}
 	
     @Override
 	public DataSource pool() {
@@ -22,11 +50,11 @@ public class connectSQLServer implements ConnectionFactory{
 
 			SQLServerDataSource dataSource = new SQLServerDataSource();
 
-			dataSource.setServerName("localhost");
-			dataSource.setDatabaseName("FilmsDb");
-			dataSource.setTrustServerCertificate(true);
-			dataSource.setUser("filmsDBAdmin");
-			dataSource.setPassword("");
+			dataSource.setServerName(serverName);
+			dataSource.setDatabaseName(databaseName);
+			dataSource.setTrustServerCertificate(trustServer);
+			dataSource.setUser(user);
+			dataSource.setPassword(password);
 
 			pool = dataSource;
 		}

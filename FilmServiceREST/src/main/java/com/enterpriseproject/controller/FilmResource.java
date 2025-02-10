@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.enterpriseproject.film.Film;
@@ -53,6 +55,33 @@ public class FilmResource {
     	
     	return ResponseEntity.status(404).build();
     } 
+
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> getFilm(@PathVariable int id) {
+    	Collection<Film> film = FilmDao.getDao().retrieveFilmByID(id);
+    	if(!film.isEmpty())
+    	{
+    		return ResponseEntity.ok().body(converter.toJSON(film));
+    	}
+    	
+    	return ResponseEntity.status(404).build();
+    }
+
+	
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public ResponseEntity<String> updateFilm( @PathVariable int id, @RequestParam String title, @RequestParam int year, 
+			@RequestParam String director, @RequestParam String stars,
+			@RequestParam String review) {
+		Film film = filmDb.createFilm(id, title, year, director, stars, review);
+		filmDb.updateFilm(film);
+    	if(filmDb.getOperation() == 1) 
+    	{
+    		return ResponseEntity.noContent().build();
+    	}
+    	return ResponseEntity.status(404).build();
+		
+	}
+
 	/* @PUT
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response updateImage(@FormParam("img") InputStream is,@FormDataParam("img") FormDataContentDisposition fileDetails)
@@ -87,34 +116,6 @@ public class FilmResource {
 		}
 		return Response.status(404).build();
 	}
-    
-    @PUT
-    @Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response updateFilm( @FormParam("title") String title, @FormParam("year") int year, 
-			@FormParam("director") String director, @FormParam("stars") String stars,
-			@FormParam("review") String review) {
-		Film film = filmDb.createFilm(id, title, year, director, stars, review);
-		filmDb.updateFilm(film);
-    	if(filmDb.getOperation() == 1) 
-    	{
-    		return Response.noContent().build();
-    	}
-    	return Response.status(404).build();
-		
-	}
-    
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getFilm(){
-    	Collection<Film> film = filmDb.retrieveFilmByID(id);
-    	if(!film.isEmpty())
-    	{
-    		return Response.ok().entity(film).build();
-    	}
-    	
-    	return Response.status(404).build();
-    }
     
 */
 }
