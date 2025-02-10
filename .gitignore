@@ -4,3 +4,6 @@ build/
 .vs/
 *.class
 *.jar
+
+
+application.yml
