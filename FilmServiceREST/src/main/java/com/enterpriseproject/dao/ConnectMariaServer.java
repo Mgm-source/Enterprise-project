@@ -19,11 +19,11 @@ public class ConnectMariaServer implements ConnectionFactory{
 	public ConnectMariaServer() {};
 
 	@Bean
-	public static connectMariaServer getInstance()
+	public static ConnectMariaServer getInstance()
 	{
 		if(instance == null)
 		{
-			instance = new connectMariaServer();
+			instance = new ConnectMariaServer();
 		}
 
 		return instance;

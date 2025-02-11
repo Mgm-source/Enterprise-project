@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.enterpriseproject.dao.ConnectSQLServer;
+import com.enterpriseproject.dao.ConnectMariaServer;
 import com.enterpriseproject.dao.ConnectionFactory;
 import com.enterpriseproject.film.Film;
 import com.enterpriseproject.film.FilmInfo;
@@ -20,7 +20,7 @@ import com.enterpriseproject.film.FilmInfo;
 		private int operation = 0;
 		
 		private FilmDao() {
-			connectionFactory =  connectMariaServer.getInstance();
+			connectionFactory =  ConnectMariaServer.getInstance();
 		}
 		// Singleton FilmDao 
 		
