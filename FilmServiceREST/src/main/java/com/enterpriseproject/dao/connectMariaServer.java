@@ -7,15 +7,16 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.mariadb.jdbc.MariaDbPoolDataSource;
 
-public class connectMariaServer implements ConnectionFactory{
+public class ConnectMariaServer implements ConnectionFactory{
 
 	private Connection connection;
 	private DataSource pool;
 	
 	// constructor singleton No new Class
-	public connectMariaServer(){}
 
-	private static connectMariaServer instance;
+	private static ConnectMariaServer instance;
+
+	public ConnectMariaServer() {};
 
 	@Bean
 	public static connectMariaServer getInstance()
@@ -27,7 +28,6 @@ public class connectMariaServer implements ConnectionFactory{
 
 		return instance;
 	}
-	
 	
 	@Override
        	public DataSource pool() {
