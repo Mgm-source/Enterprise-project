@@ -12,12 +12,12 @@ import org.springframework.context.annotation.Configuration;
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 
 @Configuration
-public class connectSQLServer implements ConnectionFactory {
+public class ConnectSQLServer implements ConnectionFactory {
 	// Connection pooling properties
 	// initalizing datasource and connection objects 
 	private Connection connection;
 	private DataSource pool;
-	static private connectSQLServer instance;
+	static private ConnectSQLServer instance;
 
 	@Value("${sqlserver.servername}")
 	private String serverName;
@@ -31,14 +31,14 @@ public class connectSQLServer implements ConnectionFactory {
 	private String password;
 	
 	// constructor singleton No new Class
-	protected  connectSQLServer(){}
+	protected  ConnectSQLServer(){}
 
 	@Bean
-	public static connectSQLServer getInstance()
+	public static ConnectSQLServer getInstance()
 	{
 		if(instance == null)
 		{
-			instance = new connectSQLServer();
+			instance = new ConnectSQLServer();
 		}
 
 		return instance;

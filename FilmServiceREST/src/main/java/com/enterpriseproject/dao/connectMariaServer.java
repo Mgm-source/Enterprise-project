@@ -7,13 +7,13 @@ import javax.sql.DataSource;
 
 import org.mariadb.jdbc.MariaDbPoolDataSource;
 
-public class connectMariaServer implements ConnectionFactory{
+public class ConnectMariaServer implements ConnectionFactory{
 
 	private Connection connection;
 	private DataSource pool;
 	
 	// constructor singleton No new Class
-	public connectMariaServer(){}
+	public ConnectMariaServer(){}
 	
     @Override
 	public DataSource pool() {
