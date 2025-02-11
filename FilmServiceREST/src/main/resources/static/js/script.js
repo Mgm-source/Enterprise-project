@@ -261,7 +261,7 @@ function idSearchNEdit(ev) {
 function deleteFilm(id) {
 
 	$.ajax({
-		url: BASE_URL + "\\" +id,
+		url: BASE_URL + "\\id\\" +id,
 		method: "delete",
 		success: () => { successDelete(id); },
 		statusCode: {
@@ -318,7 +318,7 @@ function updateFilm(id) {
 		let data = { title: title, director: director, review: review, stars: stars, year: year}
 
 		$.ajax({
-			url: BASE_URL + "\\" + id,
+			url: BASE_URL + "\\id\\" + id,
 			method: "put",
 			data: data,
 			success: () => { successUpdate(data); },

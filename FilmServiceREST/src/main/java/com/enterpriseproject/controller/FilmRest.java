@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,6 +53,28 @@ public class FilmRest {
 
 		return ResponseEntity.status(404).build();
 	}
+
+	@GetMapping(path = "/{name}",produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<String> getFilmXML(@PathVariable String name) {
+    	Collection<Film> film = FilmDao.getDao().retrieveFilm(name);
+    	if(!film.isEmpty())
+    	{
+    		return ResponseEntity.ok().body(converter.toXML(film));
+    	}
+    	
+    	return ResponseEntity.status(404).build();
+    }
+    
+	@GetMapping(path = "/{name}", produces = "text/csv")
+	public ResponseEntity<String> getFilmCSV(@PathVariable String name) {
+    	Collection<Film> film = FilmDao.getDao().retrieveFilm(name);
+    	if(!film.isEmpty())
+    	{
+    		return ResponseEntity.ok().body(converter.toTEXT(film));
+    	}
+    	
+    	return ResponseEntity.status(404).build();
+    } 
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public ResponseEntity<String> insertFilm(@RequestParam String title, @RequestParam int year,

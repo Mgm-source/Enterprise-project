@@ -17,7 +17,7 @@ import com.enterpriseproject.film.FilmConverter;
 import com.enterpriseproject.models.FilmDao;
 
 @RestController
-@RequestMapping(value = "Films/{id}")
+@RequestMapping(value = "Films/id/{id}")
 public class FilmResource {
 
 	FilmDao filmDb = FilmDao.getDao();
@@ -34,28 +34,6 @@ public class FilmResource {
     	return ResponseEntity.status(404).build();
 	}
 
-	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<String> getFilmXML(@PathVariable String id) {
-    	Collection<Film> film = FilmDao.getDao().retrieveFilm(id);
-    	if(!film.isEmpty())
-    	{
-    		return ResponseEntity.ok().body(converter.toXML(film));
-    	}
-    	
-    	return ResponseEntity.status(404).build();
-    }
-    
-	@GetMapping(produces = "text/csv")
-	public ResponseEntity<String> getFilmCSV(@PathVariable String id) {
-    	Collection<Film> film = FilmDao.getDao().retrieveFilm(id);
-    	if(!film.isEmpty())
-    	{
-    		return ResponseEntity.ok().body(converter.toTEXT(film));
-    	}
-    	
-    	return ResponseEntity.status(404).build();
-    } 
-
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> getFilm(@PathVariable int id) {
     	Collection<Film> film = FilmDao.getDao().retrieveFilmByID(id);
@@ -67,7 +45,6 @@ public class FilmResource {
     	return ResponseEntity.status(404).build();
     }
 
-	
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public ResponseEntity<String> updateFilm( @PathVariable int id, @RequestParam String title, @RequestParam int year, 
 			@RequestParam String director, @RequestParam String stars,
