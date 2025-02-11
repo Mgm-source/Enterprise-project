@@ -21,10 +21,11 @@ This is the work i completed for my software engineering degree.
 
 # Resful Interface
 
-|PATHS                                            | METHOD                         | 
-|:---                                             |:---                            |
-|BaseURI/FILMSERVICEREST/FILMS/{ID} | Get – Film by ID               |
-|BaseURI/FILMSERVICEREST/FILMS      |Get – All Films                 |
-|BaseURI/FILMSERVICEREST/FILMS      |Post – Sends/Inserts a new Film |
-|BaseURI/FILMSERVICEREST/FILMS/{ID} |Put – Updates a film by ID      |
-|BaseURI/FILMSERVICEREST/FILMS/{ID} |Delete – Deletes a film by ID   |
+|PATHS                                 | METHOD                         | 
+|:---                                  |:---                            |
+|BaseURI/FILMSERVICEREST/FILMS/ID/{ID} |Get – Film by ID                |
+|BaseURI/FILMSERVICEREST/FILMS/{NAME}  |Get – Film by name              |
+|BaseURI/FILMSERVICEREST/FILMS         |Get – All Films                 |
+|BaseURI/FILMSERVICEREST/FILMS         |Post – Sends/Inserts a new Film |
+|BaseURI/FILMSERVICEREST/FILMS/{ID}    |Put – Updates a film by ID      |
+|BaseURI/FILMSERVICEREST/FILMS/{ID}    |Delete – Deletes a film by ID   |
