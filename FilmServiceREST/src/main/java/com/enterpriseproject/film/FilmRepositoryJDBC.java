@@ -20,14 +20,14 @@ public class FilmRepositoryJDBC implements FilmRepository {
 
     @Override
     public Collection<Film> findAll() {
-        return template.query("SELECT pkid,title,year,director,stars,review FROM FILMS", this::mapFilmRowToFilm);
+        return template.query("SELECT pkid,title,year,director,stars,review FROM films", this::mapFilmRowToFilm);
     }
 
     @Override
     public Film findOne(int id) {
         // TODO Auto-generated method stub
         try {
-            return template.queryForObject("SELECT pkid,title,year,director,stars,review FROM FILMS WHERE pkid = ?", this::mapFilmRowToFilm, id);
+            return template.queryForObject("SELECT pkid,title,year,director,stars,review FROM films WHERE pkid = ?", this::mapFilmRowToFilm, id);
         }
         catch (EmptyResultDataAccessException emptyResultDataAccessException)
         {
