@@ -1,8 +1,10 @@
 package com.enterpriseproject.film;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-@XmlRootElement
+@Entity
 public class Film {
+	@Id
 	private int pkid;
 	private String title;
 	private int year;

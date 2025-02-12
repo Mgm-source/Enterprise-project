@@ -1,10 +1,12 @@
 package com.enterpriseproject.film;
 
+import java.util.Collection;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FilmRepository  {
-    Iterable<Film> findAll();
+    Collection<Film> findAll();
 
     Film findOne(int id);
 

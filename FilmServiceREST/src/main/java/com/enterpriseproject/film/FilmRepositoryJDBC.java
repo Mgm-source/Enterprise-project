@@ -2,10 +2,13 @@ package com.enterpriseproject.film;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-
+import org.springframework.stereotype.Repository;
+@Repository
 public class FilmRepositoryJDBC implements FilmRepository {
 
     private final JdbcTemplate template;
@@ -16,14 +19,20 @@ public class FilmRepositoryJDBC implements FilmRepository {
     }
 
     @Override
-    public Iterable<Film> findAll() {
+    public Collection<Film> findAll() {
         return template.query("SELECT pkid,title,year,director,stars,review FROM FILMS", this::mapFilmRowToFilm);
     }
 
     @Override
     public Film findOne(int id) {
         // TODO Auto-generated method stub
-        return template.queryForObject("SELECT * FROM films WHERE pkid = ?", this::mapFilmRowToFilm, id);
+        try {
+            return template.queryForObject("SELECT pkid,title,year,director,stars,review FROM FILMS WHERE pkid = ?", this::mapFilmRowToFilm, id);
+        }
+        catch (EmptyResultDataAccessException emptyResultDataAccessException)
+        {
+            return null;
+        } 
     }
 
     @Override
