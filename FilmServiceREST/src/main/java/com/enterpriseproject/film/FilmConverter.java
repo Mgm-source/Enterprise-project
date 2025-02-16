@@ -35,12 +35,12 @@ public class FilmConverter implements Converter {
 	    	    Document document = builder.newDocument();
 	        	
 	        	
-	    	    JAXBContext context = JAXBContext.newInstance(FilmReserve.class);
+	    	    JAXBContext context = JAXBContext.newInstance(Films.class);
 	            Marshaller m = context.createMarshaller();
 	            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 	            
-	            FilmReserve filmReserve = new FilmReserve();
-	            filmReserve.setFilmList(film);
+	            Films filmReserve = new Films();
+	            filmReserve.setFilm(film);
 	            
 	            m.marshal(filmReserve, document);
 	            

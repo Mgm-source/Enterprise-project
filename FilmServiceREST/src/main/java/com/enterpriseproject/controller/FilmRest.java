@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.enterpriseproject.film.Film;
 import com.enterpriseproject.film.FilmConverter;
 import com.enterpriseproject.film.FilmRepository;
+import com.enterpriseproject.film.Films;
 import com.enterpriseproject.models.FilmDao;
 
 @RestController
@@ -29,20 +30,23 @@ public class FilmRest {
     }
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> getAllFilms() {
+	public ResponseEntity<Collection<Film>> getAllFilms() {
 		Collection<Film> film = filmRepository.findAll();
 		if (film != null) {
-			return ResponseEntity.ok(converter.toJSON(film));
+			return ResponseEntity.ok(film);
 		}
 
 		return ResponseEntity.status(404).build();
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<String> getAllFilmsXML() {
+	public ResponseEntity<Films> getAllFilmsXML() {
 		Collection<Film> film = filmRepository.findAll();
+
 		if (film != null) {
-			return ResponseEntity.ok(converter.toXML(film));
+			Films filmReserve = new Films();
+			filmReserve.setFilm(film);
+			return ResponseEntity.ok(filmReserve);
 		}
 
 		return ResponseEntity.status(404).build();

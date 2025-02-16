@@ -42,7 +42,20 @@ public class FilmResource {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Film> getFilm(@PathVariable int id) {
+	public ResponseEntity<Film> getFilmJSON(@PathVariable int id) {
+    	// Collection<Film> film = FilmDao.getDao().retrieveFilmByID(id);
+		Film film = filmRepository.findOne(id);
+    	if(film != null)
+    	{
+    		return ResponseEntity.ok().body(film);
+    	}
+
+    	return ResponseEntity.status(404).build();
+    }
+
+
+	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+	public ResponseEntity<Film> getFilmXML(@PathVariable int id) {
     	// Collection<Film> film = FilmDao.getDao().retrieveFilmByID(id);
 		Film film = filmRepository.findOne(id);
     	if(film != null)
