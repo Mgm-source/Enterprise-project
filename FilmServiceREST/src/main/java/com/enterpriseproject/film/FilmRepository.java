@@ -9,7 +9,10 @@ public interface FilmRepository  {
     Collection<Film> findAll();
 
     Film findOne(int id);
-
-    Film save(Film film);
+    Film findOne(String title);
+    boolean update(Film film);
+    boolean save(Film film);
+    boolean delete(int id);
 
 }
+

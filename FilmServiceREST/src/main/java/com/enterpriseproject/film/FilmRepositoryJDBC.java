@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -13,7 +12,6 @@ public class FilmRepositoryJDBC implements FilmRepository {
 
     private final JdbcTemplate template;
 
-    @Autowired
     public FilmRepositoryJDBC(JdbcTemplate jdbcTemplate){
         template = jdbcTemplate;
     }
@@ -36,12 +34,13 @@ public class FilmRepositoryJDBC implements FilmRepository {
     }
 
     @Override
-    public Film save(Film film) {
+    public boolean save(Film film) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        return template.update("INSERT INTO films(title,year,director,stars,review) VALUES (?,?,?,?,?)",
+                film.getTitle(),film.getYear(),film.getDirector(),film.getStars(),film.getReview()) > 0;
     }
 
-    Film mapFilmRowToFilm(ResultSet rs , int num) throws SQLException
+    Film mapFilmRowToFilm(ResultSet rs , int _n) throws SQLException
     {
         return new Film(
         rs.getInt("pkid"),
@@ -50,5 +49,28 @@ public class FilmRepositoryJDBC implements FilmRepository {
         rs.getString("director"),
         rs.getString("stars"),
         rs.getString("review"));
+    }
+
+    @Override
+    public Film findOne(String title) {
+        try {
+            return template.queryForObject("SELECT pkid,title,year,director,stars,review FROM films WHERE title = ?", this::mapFilmRowToFilm, title);
+        }
+        catch (EmptyResultDataAccessException emptyResultDataAccessException)
+        {
+            return null;
+        } 
+    }
+
+    @Override
+    public boolean update(Film film) {
+        // TODO Auto-generated method stub
+        return template.update("UPDATE films SET title = ?, year = ?, director = ?, stars = ?, review = ? Where pkid = ?",
+                film.getTitle(),film.getYear(),film.getDirector(),film.getStars(),film.getReview(), film.getPkid()) > 0;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return template.update("DELETE FROM films WHERE pkid =?",id) > 0;
     }
 }

@@ -261,7 +261,7 @@ function idSearchNEdit(ev) {
 function deleteFilm(id) {
 
 	$.ajax({
-		url: BASE_URL + "\\id\\" +id,
+		url: BASE_URL + "\\id\\" + id,
 		method: "delete",
 		success: () => { successDelete(id); },
 		statusCode: {
@@ -283,23 +283,22 @@ function updateFilm(id) {
 
 	let image = $("#imageInput");
 
-	if(image[0].files.length === 1)
-	{
-			var formData = new FormData();
-			let img = image[0].files[0];
-			formData.append("img",img);
-			console.log(...formData.entries());
+	if (image[0].files.length === 1) {
+		var formData = new FormData();
+		let img = image[0].files[0];
+		formData.append("img", img);
+		console.log(...formData.entries());
 
-			$.ajax({
-				url: BASE_URL + "/" + id,
-				processData: false,
-				contentType: false,
-				method: "put",
-				data: formData,
-				statusCode: {
-					500: serverError, 404: () => { failedUpdate(data); }
-				}
-			});
+		$.ajax({
+			url: BASE_URL + "\\id\\" + id,
+			processData: false,
+			contentType: false,
+			method: "put",
+			data: formData,
+			statusCode: {
+				500: serverError, 404: () => { failedUpdate(data); }
+			}
+		});
 	}
 
 	// Add all the selected elements into an array or the declared variables up top
@@ -315,7 +314,7 @@ function updateFilm(id) {
 		year = year.val();
 
 		// json object
-		let data = { title: title, director: director, review: review, stars: stars, year: year}
+		let data = { title: title, director: director, review: review, stars: stars, year: year }
 
 		$.ajax({
 			url: BASE_URL + "\\id\\" + id,
@@ -357,7 +356,7 @@ function VaildateUserFilm(nodeList) {
 
 	// True counts as one so when one of the items in the array is false the condition below will fail (return false)
 	return (vaildNum == boolArr.reduce((prev, curr) => { return prev + curr })) ? true : false;
-	
+
 }
 
 // Disables the insert button
@@ -407,7 +406,7 @@ function successDelete(id) {
 
 	disableNode(".modelBtn");
 	enableNode("#search");
-	
+
 	successAlert("Deleted film", ".form", id);
 
 	clearNode("#content");

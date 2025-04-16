@@ -1,9 +1,10 @@
-package com.enterpriseproject.controller; 
+package com.enterpriseproject.controller;
 
 import java.util.Collection;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,90 +16,92 @@ import com.enterpriseproject.film.Film;
 import com.enterpriseproject.film.FilmConverter;
 import com.enterpriseproject.film.FilmRepository;
 import com.enterpriseproject.film.Films;
-import com.enterpriseproject.models.FilmDao;
 
 @RestController
 @RequestMapping(value = "Films")
 public class FilmRest {
 
-	FilmDao filmDb = FilmDao.getDao();
-	FilmConverter converter = new FilmConverter();
-	FilmRepository filmRepository;
+    FilmConverter converter = new FilmConverter();
+    FilmRepository filmRepository;
 
-    public FilmRest(FilmRepository filmRepository) {
+    JmsTemplate jmstemplete;
+
+    public FilmRest(FilmRepository filmRepository, JmsTemplate jmstemplete) {
         this.filmRepository = filmRepository;
+        this.jmstemplete = jmstemplete;
     }
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Film>> getAllFilms() {
-		Collection<Film> film = filmRepository.findAll();
-		if (film != null) {
-			return ResponseEntity.ok(film);
-		}
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Collection<Film>> getAllFilms() {
+        Collection<Film> film = filmRepository.findAll();
+        if (film != null) {
+            return ResponseEntity.ok(film);
+        }
 
-		return ResponseEntity.status(404).build();
-	}
-
-	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<Films> getAllFilmsXML() {
-		Collection<Film> film = filmRepository.findAll();
-
-		if (film != null) {
-			Films filmReserve = new Films();
-			filmReserve.setFilm(film);
-			return ResponseEntity.ok(filmReserve);
-		}
-
-		return ResponseEntity.status(404).build();
-	}
-
-	@GetMapping(produces = "text/csv")
-	public ResponseEntity<String> getAllFilmsCSV() {
-		Collection<Film> film = filmRepository.findAll();
-
-		if (film != null) {
-
-			return ResponseEntity.ok(converter.toTEXT(film));
-		}
-
-		return ResponseEntity.status(404).build();
-	}
-
-	@GetMapping(path = "/{name}",produces = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<String> getFilmXML(@PathVariable String name) {
-    	Collection<Film> film = FilmDao.getDao().retrieveFilm(name);
-    	if(!film.isEmpty())
-    	{
-    		return ResponseEntity.ok().body(converter.toXML(film));
-    	}
-    	
-    	return ResponseEntity.status(404).build();
+        return ResponseEntity.status(404).build();
     }
-    
-	@GetMapping(path = "/{name}", produces = "text/csv")
-	public ResponseEntity<String> getFilmCSV(@PathVariable String name) {
-    	Collection<Film> film = FilmDao.getDao().retrieveFilm(name);
-    	if(!film.isEmpty())
-    	{
-    		return ResponseEntity.ok().body(converter.toTEXT(film));
-    	}
-    	
-    	return ResponseEntity.status(404).build();
-    } 
 
-	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public ResponseEntity<String> insertFilm(@RequestParam String title, @RequestParam int year,
-			@RequestParam String director, @RequestParam String stars,
-			@RequestParam String review) {
-		Film film = filmDb.createFilm(title, year, director, stars, review);
-		filmDb.insertFilm(film);
-		
+    @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Films> getAllFilmsXML() {
+        Collection<Film> film = filmRepository.findAll();
 
-		if (filmDb.getOperation() == 1) {
-			return ResponseEntity.ok().build();
-		}
-		return ResponseEntity.status(404).build();
+        if (film != null) {
+            Films filmReserve = new Films();
+            filmReserve.setFilm(film);
+            return ResponseEntity.ok(filmReserve);
+        }
 
-	}
+        return ResponseEntity.status(404).build();
+    }
+
+    @GetMapping(produces = "text/csv")
+    public ResponseEntity<String> getAllFilmsCSV() {
+        Collection<Film> film = filmRepository.findAll();
+
+        if (film != null) {
+
+            return ResponseEntity.ok(converter.toTEXT(film));
+        }
+
+        return ResponseEntity.status(404).build();
+    }
+
+    @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Film> getFilmXML(@PathVariable String name) {
+        Film film = filmRepository.findOne(name);
+
+        if (film != null) {
+            return ResponseEntity.ok().body(film);
+        }
+
+        return ResponseEntity.status(404).build();
+    }
+
+    @GetMapping(path = "/{name}", produces = "text/csv")
+    public ResponseEntity<Film> getFilmCSV(@PathVariable String name) {
+        Film film = filmRepository.findOne(name);
+
+        if (film != null) {
+            return ResponseEntity.ok().body(film);
+        }
+
+        return ResponseEntity.status(404).build();
+    }
+
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public ResponseEntity<String> insertFilm(@RequestParam String title, @RequestParam int year,
+            @RequestParam String director, @RequestParam String stars,
+            @RequestParam String review) {
+
+        Film film = new Film(title, year, director, stars, review);
+
+        jmstemplete.convertAndSend("filmQ", film);
+
+        if (filmRepository.save(film)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.status(404).build();
+
+    }
 
 }

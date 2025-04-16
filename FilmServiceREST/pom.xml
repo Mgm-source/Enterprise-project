@@ -19,10 +19,16 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.4.2</version>
+    <version>3.4.3</version>
   </parent>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
@@ -68,8 +74,20 @@
     </dependency>
 
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-activemq</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>com.fasterxml.jackson.dataformat</groupId>
     <artifactId>jackson-dataformat-xml</artifactId>
+    </dependency>
+  
+
+  
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-oxm</artifactId>
     </dependency>
   </dependencies>
 

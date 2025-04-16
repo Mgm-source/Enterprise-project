@@ -1,6 +1,11 @@
 package com.enterpriseproject.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,32 +14,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.enterpriseproject.film.Film;
-import com.enterpriseproject.film.FilmConverter;
 import com.enterpriseproject.film.FilmRepository;
-import com.enterpriseproject.models.FilmDao;
 
 @RestController
 @RequestMapping(value = "Films/id/{id}")
 public class FilmResource {
 
-	FilmDao filmDb = FilmDao.getDao();
-	FilmConverter converter = new FilmConverter();
-
 	FilmRepository filmRepository;
 
-	@Autowired
-    public FilmResource(FilmRepository filmRepository) {
+	private static final Logger logger = LoggerFactory.getLogger(FilmResource.class);
+
+	public FilmResource(FilmRepository filmRepository) {
         this.filmRepository = filmRepository;
     }
 
 	@DeleteMapping
 	public ResponseEntity<String> deleteFilm(@PathVariable int id) {
-
-		filmDb.deleteFilm(id);
-    	if(filmDb.getOperation() == 1)
+		
+    	if(filmRepository.delete(id))
     	{
     		 return ResponseEntity.noContent().build();
     	}
@@ -45,8 +47,11 @@ public class FilmResource {
 	public ResponseEntity<Film> getFilmJSON(@PathVariable int id) {
     	// Collection<Film> film = FilmDao.getDao().retrieveFilmByID(id);
 		Film film = filmRepository.findOne(id);
+
+		
     	if(film != null)
     	{
+			logger.info("Found" + film);
     		return ResponseEntity.ok().body(film);
     	}
 
@@ -60,6 +65,7 @@ public class FilmResource {
 		Film film = filmRepository.findOne(id);
     	if(film != null)
     	{
+			logger.info("Found film" + film);
     		return ResponseEntity.ok().body(film);
     	}
 
@@ -70,9 +76,8 @@ public class FilmResource {
 	public ResponseEntity<String> updateFilm( @PathVariable int id, @RequestParam String title, @RequestParam int year,
 			@RequestParam String director, @RequestParam String stars,
 			@RequestParam String review) {
-		Film film = filmDb.createFilm(id, title, year, director, stars, review);
-		filmDb.updateFilm(film);
-    	if(filmDb.getOperation() == 1)
+
+    	if(filmRepository.update(new Film(id,title, year, director, stars, review)))
     	{
     		return ResponseEntity.noContent().build();
     	}
@@ -80,40 +85,36 @@ public class FilmResource {
 
 	}
 
-	/* @PUT
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response updateImage(@FormParam("img") InputStream is,@FormDataParam("img") FormDataContentDisposition fileDetails)
+
+	@PutMapping(consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<String> updateImage(@PathVariable int id, @RequestPart("img") MultipartFile file)
 	{
 		String devPath = "C:\\Users\\Munashe\\dump\\";
+
 		try {
-			FileOutputStream out = new FileOutputStream(devPath+fileDetails.getFileName());
+			FileOutputStream out = new FileOutputStream(devPath+file.getOriginalFilename());
 
-			byte[] bytes = new byte[1024];
-
-			filmDb.insertImageMeta(id,fileDetails.getFileName(),fileDetails.getType(),"");
-
+			//filmDb.insertImageMeta(id,file.getName(),file.getContentType(),"");
 
 			try {
-				int read;
-				while((read = is.read(bytes)) != -1)
-				{
-					out.write(bytes,0,read);
-				}
+				
+				byte[] contentbtyes = file.getBytes();
+				
+				out.write(contentbtyes);
 
 				out.flush();
 				out.close();
 
-				return Response.ok().build();
+				return ResponseEntity.ok().build();
 
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e ) {
 			e.printStackTrace();
 		}
-		return Response.status(404).build();
+		return ResponseEntity.status(404).build();
 	}
 
-*/
 }
