@@ -6,4 +6,4 @@ build/
 *.jar
 
 
-application.yml
+application.yaml
