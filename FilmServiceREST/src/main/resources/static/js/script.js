@@ -508,7 +508,7 @@ function otherformat(event) {
 	// Sends a get request with an id and expects XML to be returned 
 	$.get({
 
-		url: BASE_URL + "/" + id,
+		url: BASE_URL + "\\id\\" + id,
 		method: "get",
 		dataType: "xml",
 		success: (data) => {
@@ -519,7 +519,7 @@ function otherformat(event) {
 
 			let xml = $(data);
 
-			placerXML("film", xml, col1);
+			placerXML(xml[0].documentElement.tagName, xml, col1);
 			row.prepend(col1);
 		},
 		statusCode: { 404: missingError, 500: serverError }
@@ -529,7 +529,7 @@ function otherformat(event) {
 	// Sends a get request with an id and expects CSV to be returned 
 	$.get({
 
-		url: BASE_URL + "/" + id,
+		url: BASE_URL + "\\id\\" + id,
 		method: "get",
 		headers: { Accept: 'text/csv', 'Content-Type': 'text/csv' },
 		success: (data) => {

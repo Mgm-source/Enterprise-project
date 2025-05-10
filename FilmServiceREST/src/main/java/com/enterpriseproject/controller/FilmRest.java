@@ -21,7 +21,6 @@ import com.enterpriseproject.film.Films;
 @RequestMapping(value = "Films")
 public class FilmRest {
 
-    FilmConverter converter = new FilmConverter();
     FilmRepository filmRepository;
 
     JmsTemplate jmstemplete;
@@ -55,12 +54,13 @@ public class FilmRest {
     }
 
     @GetMapping(produces = "text/csv")
-    public ResponseEntity<String> getAllFilmsCSV() {
+    public ResponseEntity<Films> getAllFilmsCSV() {
         Collection<Film> film = filmRepository.findAll();
 
         if (film != null) {
-
-            return ResponseEntity.ok(converter.toTEXT(film));
+	    Films filmReserve = new Films();
+            filmReserve.setFilm(film);
+            return ResponseEntity.ok(filmReserve);
         }
 
         return ResponseEntity.status(404).build();
