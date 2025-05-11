@@ -54,8 +54,19 @@ public class FilmRest {
     }
 
     @GetMapping(produces = "text/csv")
-    public ResponseEntity<Films> getAllFilmsCSV() {
+    public ResponseEntity<Collection<Film>> getAllFilmsCSV() {
         Collection<Film> film = filmRepository.findAll();
+
+        if (film != null) {
+            return ResponseEntity.ok(film);
+        }
+
+        return ResponseEntity.status(404).build();
+    }
+
+    @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_XML_VALUE)
+    public ResponseEntity<Films> getFilmXML(@PathVariable String name) {
+        Collection<Film> film = filmRepository.findOne(name);
 
         if (film != null) {
 	    Films filmReserve = new Films();
@@ -66,23 +77,12 @@ public class FilmRest {
         return ResponseEntity.status(404).build();
     }
 
-    @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_XML_VALUE)
-    public ResponseEntity<Film> getFilmXML(@PathVariable String name) {
-        Film film = filmRepository.findOne(name);
-
-        if (film != null) {
-            return ResponseEntity.ok().body(film);
-        }
-
-        return ResponseEntity.status(404).build();
-    }
-
     @GetMapping(path = "/{name}", produces = "text/csv")
-    public ResponseEntity<Film> getFilmCSV(@PathVariable String name) {
-        Film film = filmRepository.findOne(name);
+    public ResponseEntity<Collection<Film>> getFilmCSV(@PathVariable String name) {
+        Collection<Film> film = filmRepository.findOne(name);
 
         if (film != null) {
-            return ResponseEntity.ok().body(film);
+            return ResponseEntity.ok(film);
         }
 
         return ResponseEntity.status(404).build();

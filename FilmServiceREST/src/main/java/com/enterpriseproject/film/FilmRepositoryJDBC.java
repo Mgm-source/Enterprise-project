@@ -22,10 +22,10 @@ public class FilmRepositoryJDBC implements FilmRepository {
     }
 
     @Override
-    public Film findOne(int id) {
+    public Collection<Film> findOne(int id) {
         // TODO Auto-generated method stub
         try {
-            return template.queryForObject("SELECT pkid,title,year,director,stars,review FROM films WHERE pkid = ?", this::mapFilmRowToFilm, id);
+            return template.query("SELECT pkid,title,year,director,stars,review FROM films WHERE pkid = ?", this::mapFilmRowToFilm, id);
         }
         catch (EmptyResultDataAccessException emptyResultDataAccessException)
         {
@@ -52,9 +52,9 @@ public class FilmRepositoryJDBC implements FilmRepository {
     }
 
     @Override
-    public Film findOne(String title) {
+    public Collection<Film> findOne(String title) {
         try {
-            return template.queryForObject("SELECT pkid,title,year,director,stars,review FROM films WHERE title = ?", this::mapFilmRowToFilm, title);
+            return template.query("SELECT pkid,title,year,director,stars,review FROM films WHERE title = ?", this::mapFilmRowToFilm, title);
         }
         catch (EmptyResultDataAccessException emptyResultDataAccessException)
         {

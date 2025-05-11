@@ -3,6 +3,7 @@ package com.enterpriseproject.controller;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.enterpriseproject.film.Film;
+import com.enterpriseproject.film.Films;
 import com.enterpriseproject.film.FilmRepository;
-
 @RestController
 @RequestMapping(value = "Films/id/{id}")
 public class FilmResource {
@@ -44,32 +45,39 @@ public class FilmResource {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Film> getFilmJSON(@PathVariable int id) {
-    	// Collection<Film> film = FilmDao.getDao().retrieveFilmByID(id);
-		Film film = filmRepository.findOne(id);
+	public ResponseEntity<Collection<Film>> getFilmJSON(@PathVariable int id) {
+        Collection<Film> film = filmRepository.findOne(id);
 
-		
-    	if(film != null)
-    	{
-			logger.info("Found" + film);
-    		return ResponseEntity.ok().body(film);
-    	}
+        if (film != null) {
+            return ResponseEntity.ok(film);
+        }
 
-    	return ResponseEntity.status(404).build();
+        return ResponseEntity.status(404).build();
     }
 
 
 	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<Film> getFilmXML(@PathVariable int id) {
-    	// Collection<Film> film = FilmDao.getDao().retrieveFilmByID(id);
-		Film film = filmRepository.findOne(id);
-    	if(film != null)
-    	{
-			logger.info("Found film" + film);
-    		return ResponseEntity.ok().body(film);
-    	}
+	public ResponseEntity<Films> getFilmXML(@PathVariable int id) {
+        Collection<Film> film = filmRepository.findOne(id);
 
-    	return ResponseEntity.status(404).build();
+        if (film != null) {
+	    Films filmReserve = new Films();
+            filmReserve.setFilm(film);
+            return ResponseEntity.ok(filmReserve);
+        }
+
+        return ResponseEntity.status(404).build();
+    }
+
+	@GetMapping(produces = "text/csv")
+	public ResponseEntity<Collection<Film>> getFilmCSV(@PathVariable int id) {
+        Collection<Film> film = filmRepository.findOne(id);
+
+        if (film != null) {
+            return ResponseEntity.ok(film);
+        }
+
+        return ResponseEntity.status(404).build();
     }
 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)

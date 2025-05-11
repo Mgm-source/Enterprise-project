@@ -23,8 +23,7 @@ public class CsvHttpConverter extends AbstractHttpMessageConverter<Collection<Fi
 	@Override
 	protected void writeInternal(Collection<Film> films, HttpOutputMessage outputMessage) {
 
-        	try {
-			OutputStreamWriter writer = new OutputStreamWriter(outputMessage.getBody());
+        	try (OutputStreamWriter writer = new OutputStreamWriter(outputMessage.getBody())){
 			writer.write(converter.toTEXT(films));
 		} catch (IOException e) {
 
@@ -39,6 +38,6 @@ public class CsvHttpConverter extends AbstractHttpMessageConverter<Collection<Fi
 	
 	@Override
 	protected boolean supports(Class<?> clazz) {
-		return Films.class.isAssignableFrom(clazz);
+		return Collection.class.isAssignableFrom(clazz);
 	}
 }	

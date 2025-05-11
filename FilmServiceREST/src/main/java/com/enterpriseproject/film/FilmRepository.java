@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 public interface FilmRepository  {
     Collection<Film> findAll();
 
-    Film findOne(int id);
-    Film findOne(String title);
+    Collection<Film> findOne(int id);
+    Collection<Film> findOne(String title);
     boolean update(Film film);
     boolean save(Film film);
     boolean delete(int id);
