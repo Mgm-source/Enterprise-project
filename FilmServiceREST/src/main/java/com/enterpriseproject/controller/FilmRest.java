@@ -1,6 +1,6 @@
 package com.enterpriseproject.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.enterpriseproject.film.Film;
-import com.enterpriseproject.film.FilmConverter;
 import com.enterpriseproject.film.FilmRepository;
 import com.enterpriseproject.film.Films;
 
@@ -31,8 +30,8 @@ public class FilmRest {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Collection<Film>> getAllFilms() {
-        Collection<Film> film = filmRepository.findAll();
+    public ResponseEntity<List<Film>> getAllFilms() {
+        List<Film> film = filmRepository.findAll();
         if (film != null) {
             return ResponseEntity.ok(film);
         }
@@ -42,7 +41,7 @@ public class FilmRest {
 
     @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Films> getAllFilmsXML() {
-        Collection<Film> film = filmRepository.findAll();
+        List<Film> film = filmRepository.findAll();
 
         if (film != null) {
             Films filmReserve = new Films();
@@ -54,8 +53,8 @@ public class FilmRest {
     }
 
     @GetMapping(produces = "text/csv")
-    public ResponseEntity<Collection<Film>> getAllFilmsCSV() {
-        Collection<Film> film = filmRepository.findAll();
+    public ResponseEntity<List<Film>> getAllFilmsCSV() {
+        List<Film> film = filmRepository.findAll();
 
         if (film != null) {
             return ResponseEntity.ok(film);
@@ -66,7 +65,7 @@ public class FilmRest {
 
     @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_XML_VALUE)
     public ResponseEntity<Films> getFilmXML(@PathVariable String name) {
-        Collection<Film> film = filmRepository.findOne(name);
+        List<Film> film = filmRepository.findOne(name);
 
         if (film != null) {
 	    Films filmReserve = new Films();
@@ -78,8 +77,9 @@ public class FilmRest {
     }
 
     @GetMapping(path = "/{name}", produces = "text/csv")
-    public ResponseEntity<Collection<Film>> getFilmCSV(@PathVariable String name) {
-        Collection<Film> film = filmRepository.findOne(name);
+    public ResponseEntity<List<Film>> getFilmCSV(@PathVariable String name) {
+        List<Film> film = filmRepository.findOne(name);
+        
 
         if (film != null) {
             return ResponseEntity.ok(film);

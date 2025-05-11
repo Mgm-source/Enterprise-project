@@ -3,7 +3,7 @@ package com.enterpriseproject.controller;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Collection;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.enterpriseproject.film.Film;
-import com.enterpriseproject.film.Films;
 import com.enterpriseproject.film.FilmRepository;
+import com.enterpriseproject.film.Films;
 @RestController
 @RequestMapping(value = "Films/id/{id}")
 public class FilmResource {
@@ -45,8 +45,8 @@ public class FilmResource {
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Collection<Film>> getFilmJSON(@PathVariable int id) {
-        Collection<Film> film = filmRepository.findOne(id);
+	public ResponseEntity<List<Film>> getFilmJSON(@PathVariable int id) {
+        List<Film> film = filmRepository.findOne(id);
 
         if (film != null) {
             return ResponseEntity.ok(film);
@@ -58,7 +58,7 @@ public class FilmResource {
 
 	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Films> getFilmXML(@PathVariable int id) {
-        Collection<Film> film = filmRepository.findOne(id);
+        List<Film> film = filmRepository.findOne(id);
 
         if (film != null) {
 	    Films filmReserve = new Films();
@@ -70,8 +70,8 @@ public class FilmResource {
     }
 
 	@GetMapping(produces = "text/csv")
-	public ResponseEntity<Collection<Film>> getFilmCSV(@PathVariable int id) {
-        Collection<Film> film = filmRepository.findOne(id);
+	public ResponseEntity<List<Film>> getFilmCSV(@PathVariable int id) {
+        List<Film> film = filmRepository.findOne(id);
 
         if (film != null) {
             return ResponseEntity.ok(film);

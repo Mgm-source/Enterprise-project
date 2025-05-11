@@ -1,6 +1,6 @@
 package com.enterpriseproject.film;
 
-import java.util.Collection;
+import java.util.List;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
@@ -14,17 +14,17 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class Films {
 	
 	@XmlElement(name = "Film")
-	private Collection<Film> filmlist;
+	private List<Film> filmlist;
 	
 	public Films() {}
 	
-	public void setFilm(Collection<Film> filmlist) {
+	public void setFilm(List<Film> filmlist) {
 		this.filmlist = filmlist;
 		
 	}
 
 	@JacksonXmlElementWrapper(useWrapping = false)
-	public Collection<Film> getFilm() {
+	public List<Film> getFilm() {
 		return filmlist;
 	}
 

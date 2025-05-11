@@ -1,13 +1,13 @@
 package com.enterpriseproject.film;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface Converter {
 	
-	public String toXML(Collection<Film> film);
+	public String toXML(List<Film> film);
 	
-	public String toJSON(Collection<Film> film);
+	public String toJSON(List<Film> film);
 	
-	public String toTEXT(Collection<Film> film);
+	public String toTEXT(List<Film> film);
 
 }

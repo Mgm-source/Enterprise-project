@@ -2,7 +2,7 @@ package com.enterpriseproject.film;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
+import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,12 +17,12 @@ public class FilmRepositoryJDBC implements FilmRepository {
     }
 
     @Override
-    public Collection<Film> findAll() {
+    public List<Film> findAll() {
         return template.query("SELECT pkid,title,year,director,stars,review FROM films", this::mapFilmRowToFilm);
     }
 
     @Override
-    public Collection<Film> findOne(int id) {
+    public List<Film> findOne(int id) {
         // TODO Auto-generated method stub
         try {
             return template.query("SELECT pkid,title,year,director,stars,review FROM films WHERE pkid = ?", this::mapFilmRowToFilm, id);
@@ -52,7 +52,7 @@ public class FilmRepositoryJDBC implements FilmRepository {
     }
 
     @Override
-    public Collection<Film> findOne(String title) {
+    public List<Film> findOne(String title) {
         try {
             return template.query("SELECT pkid,title,year,director,stars,review FROM films WHERE title = ?", this::mapFilmRowToFilm, title);
         }

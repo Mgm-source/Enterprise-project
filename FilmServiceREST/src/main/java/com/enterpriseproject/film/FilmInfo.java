@@ -1,5 +1,5 @@
 package com.enterpriseproject.film;
-import java.util.Collection;
+import java.util.List;
 
 public interface FilmInfo {
 	
@@ -26,7 +26,7 @@ public interface FilmInfo {
 		 * Returns a collection of nothing if nothing is found
 		 * @return collection of films
 		 */
-	 public Collection<Film> listFilm ();
+	 public List<Film> listFilm ();
 	 
 		/**
 		 * Gets a specified film.
@@ -34,7 +34,7 @@ public interface FilmInfo {
 		 * @param title the title of the film 
 		 * @return collection of a film or films
 		 */
-	 public Collection<Film> retrieveFilm(String title);
+	 public List<Film> retrieveFilm(String title);
 	 
 
 }

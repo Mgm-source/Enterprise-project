@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import com.enterpriseproject.dao.ConnectMariaServer;
 import com.enterpriseproject.dao.ConnectionFactory;
@@ -110,8 +110,8 @@ import com.enterpriseproject.film.FilmInfo;
 		}
 		
 		@Override
-		public Collection<Film> listFilm() {
-			ArrayList<Film> list = new ArrayList<>();
+		public List<Film> listFilm() {
+			List<Film> list = new ArrayList<>();
 			String sql = "SELECT * FROM films";
 			try {
 				// Gets the instance of the connection and uses it to create a statement that gets all the films in the db 
@@ -136,7 +136,7 @@ import com.enterpriseproject.film.FilmInfo;
 			return list;
 		}
 		
-		public Collection<Film> listFilm(int page) {
+		public List<Film> listFilm(int page) {
 			if(page>0) {
 				page = page + 10;
 			}else {
@@ -169,8 +169,8 @@ import com.enterpriseproject.film.FilmInfo;
 		}
 		
 		@Override
-		public Collection<Film> retrieveFilm(String title) {
-			ArrayList<Film> list = new ArrayList<>();
+		public List<Film> retrieveFilm(String title) {
+			List<Film> list = new ArrayList<>();
 			title = title.toUpperCase();
 			String sql = "SELECT * FROM films WHERE title LIKE ?";
 			try {
@@ -205,8 +205,8 @@ import com.enterpriseproject.film.FilmInfo;
 			 * @param year
 			 * @return requested film or films in a collection
 			 */
-		public Collection<Film> retrieveFilm(int year) {
-			ArrayList<Film> list = new ArrayList<>();
+		public List<Film> retrieveFilm(int year) {
+			List<Film> list = new ArrayList<>();
 			String sql = "SELECT * FROM films WHERE year = ?";
 			try {
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films
@@ -235,8 +235,8 @@ import com.enterpriseproject.film.FilmInfo;
 
 		
 		
-		public Collection<Film> retrieveFilmByID(int pkid) {
-			ArrayList<Film> list = new ArrayList<>();
+		public List<Film> retrieveFilmByID(int pkid) {
+			List<Film> list = new ArrayList<>();
 			String sql = "SELECT * FROM films WHERE pkid = ?";
 			try {
 				/* Gets the instance of the connection and uses it to create a statement that gets all the films

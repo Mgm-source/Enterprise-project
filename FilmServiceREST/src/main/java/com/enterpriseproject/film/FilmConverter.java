@@ -2,8 +2,8 @@ package com.enterpriseproject.film;
 
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -25,8 +25,8 @@ public class FilmConverter implements Converter {
 	
 	public FilmConverter() {}
 	// option save as a dom document
-        @Override
-	public String toXML(Collection<Film> film) {
+    @Override
+	public String toXML(List<Film> film) {
 
 	        try {
 	        	
@@ -68,13 +68,13 @@ public class FilmConverter implements Converter {
 	    }
 
 	@Override
-	public String toJSON(Collection<Film> film) {
+	public String toJSON(List<Film> film) {
 	        String json = new Gson().toJson(film);
 		return json;
 	}
 
 	@Override
-	public String toTEXT(Collection<Film> film) {
+	public String toTEXT(List<Film> film) {
 		
 		Iterator<Film> iterator = film.iterator();
 		StringBuffer sb = new StringBuffer();

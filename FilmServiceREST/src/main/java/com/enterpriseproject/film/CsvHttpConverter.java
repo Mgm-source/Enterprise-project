@@ -1,17 +1,16 @@
 package com.enterpriseproject.film;
 
-import org.springframework.http.HttpOutputMessage;
-import org.springframework.http.HttpInputMessage;
-import org.springframework.http.converter.AbstractHttpMessageConverter;
-import org.springframework.http.MediaType;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.Collection;
-import java.lang.UnsupportedOperationException;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.List;
+
+import org.springframework.http.HttpInputMessage;
+import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.AbstractHttpMessageConverter;
 
 
-public class CsvHttpConverter extends AbstractHttpMessageConverter<Collection<Film>> {
+public class CsvHttpConverter extends AbstractHttpMessageConverter<List<Film>> {
 
 	 private final FilmConverter converter = new FilmConverter();
 
@@ -21,7 +20,7 @@ public class CsvHttpConverter extends AbstractHttpMessageConverter<Collection<Fi
 	}
 
 	@Override
-	protected void writeInternal(Collection<Film> films, HttpOutputMessage outputMessage) {
+	protected void writeInternal(List<Film> films, HttpOutputMessage outputMessage) {
 
         	try (OutputStreamWriter writer = new OutputStreamWriter(outputMessage.getBody())){
 			writer.write(converter.toTEXT(films));
@@ -32,12 +31,12 @@ public class CsvHttpConverter extends AbstractHttpMessageConverter<Collection<Fi
 	}
 
 	@Override
-	protected Collection<Film> readInternal(Class<? extends Collection<Film>> clazz, HttpInputMessage inputMessage) {
+	protected List<Film> readInternal(Class<? extends List<Film>> clazz, HttpInputMessage inputMessage) {
     		throw new UnsupportedOperationException("CSV input not supported");
 	}
 	
 	@Override
 	protected boolean supports(Class<?> clazz) {
-		return Collection.class.isAssignableFrom(clazz);
+		return List.class.isAssignableFrom(clazz);
 	}
 }	
