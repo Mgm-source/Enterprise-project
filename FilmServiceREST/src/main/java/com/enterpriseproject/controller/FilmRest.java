@@ -95,7 +95,7 @@ public class FilmRest {
 
         Film film = new Film(title, year, director, stars, review);
 
-        jmstemplete.convertAndSend("filmQ", film);
+        //jmstemplete.convertAndSend("filmQ", film);
 
         if (filmRepository.save(film)) {
             return ResponseEntity.ok().build();
