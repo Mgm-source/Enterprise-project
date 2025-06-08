@@ -1,5 +1,7 @@
 package com.enterpriseproject.film;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,9 @@ public class FilmProcessorBean {
     {
         films.getFilm().forEach( (film) -> {
 
-            if(null == filmRepository.findByTitleAndYearAndDirector(film.getTitle(), film.getYear(), film.getDirector()))
+            List<Film> dbFilms = filmRepository.findByTitleAndYearAndDirector(film.getTitle(), film.getYear(), film.getDirector());
+            
+            if(dbFilms != null && dbFilms.isEmpty())
             {
                 filmRepository.save(film);
                 logger.info("Film added:\n" + film.toString());
