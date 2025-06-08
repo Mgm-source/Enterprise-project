@@ -41,6 +41,21 @@
       <artifactId>camel-spring-boot-starter</artifactId>
   </dependency>
 
+  <dependency>
+  <groupId>org.apache.camel.springboot</groupId>
+  <artifactId>camel-jms-starter</artifactId>
+</dependency>
+
+<dependency>
+  <groupId>org.apache.camel.springboot</groupId>
+  <artifactId>camel-ftp-starter</artifactId>
+</dependency>
+
+<dependency>
+    <groupId>org.apache.camel.springboot</groupId>
+    <artifactId>camel-jacksonxml-starter</artifactId>
+</dependency>
+
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>

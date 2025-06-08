@@ -73,4 +73,15 @@ public class FilmRepositoryJDBC implements FilmRepository {
     public boolean delete(int id) {
         return template.update("DELETE FROM films WHERE pkid =?",id) > 0;
     }
+
+    @Override
+    public List<Film> findByTitleAndYearAndDirector(String title, int year, String director) {
+        try {
+            return template.query("SELECT pkid,title,year,director,stars,review FROM films WHERE title = ? and year = ? and director = ?", this::mapFilmRowToFilm, title, year,director);
+        }
+        catch (EmptyResultDataAccessException emptyResultDataAccessException)
+        {
+            return null;
+        }
+    }
 }
