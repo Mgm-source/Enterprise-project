@@ -24,6 +24,7 @@ public class FilmRoute extends RouteBuilder{
     public void configure() throws Exception {
 
         from("ftp://"+ ftpLocation + "?" + "username="+ userName+"&password="+ password +
+             "&passiveMode=true" +
              "&move=.done/${file:name.noext}-${date:now:yyMMddHHmmss}.${file:ext}"
         ).to("jms:incomingFTPFilms");
 
