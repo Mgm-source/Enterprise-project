@@ -1,9 +1,11 @@
 package com.enterpriseproject.film;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
 @Entity
+@Table(name = "films")
 @XmlRootElement(name = "film")
 public class Film {
 	@Id

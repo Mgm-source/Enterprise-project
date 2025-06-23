@@ -23,7 +23,6 @@ public class FilmRepositoryJDBC implements FilmRepository {
 
     @Override
     public List<Film> findOne(int id) {
-        // TODO Auto-generated method stub
         try {
             return template.query("SELECT pkid,title,year,director,stars,review FROM films WHERE pkid = ?", this::mapFilmRowToFilm, id);
         }
@@ -35,7 +34,6 @@ public class FilmRepositoryJDBC implements FilmRepository {
 
     @Override
     public boolean save(Film film) {
-        // TODO Auto-generated method stub
         return template.update("INSERT INTO films(title,year,director,stars,review) VALUES (?,?,?,?,?)",
                 film.getTitle(),film.getYear(),film.getDirector(),film.getStars(),film.getReview()) > 0;
     }
@@ -63,8 +61,7 @@ public class FilmRepositoryJDBC implements FilmRepository {
     }
 
     @Override
-    public boolean update(Film film) {
-        // TODO Auto-generated method stub
+    public boolean update(Film film) {   
         return template.update("UPDATE films SET title = ?, year = ?, director = ?, stars = ?, review = ? Where pkid = ?",
                 film.getTitle(),film.getYear(),film.getDirector(),film.getStars(),film.getReview(), film.getPkid()) > 0;
     }

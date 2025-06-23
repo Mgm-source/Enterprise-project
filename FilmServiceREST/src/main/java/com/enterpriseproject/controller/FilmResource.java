@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,6 +28,9 @@ import com.enterpriseproject.film.Films;
 public class FilmResource {
 
 	FilmRepository filmRepository;
+
+	@Value("${ImageService.location}")
+    private String location;
 
 	private static final Logger logger = LoggerFactory.getLogger(FilmResource.class);
 
@@ -97,10 +101,8 @@ public class FilmResource {
 	@PutMapping(consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<String> updateImage(@PathVariable int id, @RequestPart("img") MultipartFile file)
 	{
-		String devPath = "C:\\Users\\Munashe\\dump\\";
-
 		try {
-			FileOutputStream out = new FileOutputStream(devPath+file.getOriginalFilename());
+			FileOutputStream out = new FileOutputStream(location+file.getOriginalFilename());
 
 			//filmDb.insertImageMeta(id,file.getName(),file.getContentType(),"");
 

@@ -95,13 +95,13 @@ function checklen(node, name, max, min) {
     node.addClass("ui-state-error");
     invaildLen(
       "Length of " +
-        name +
-        " out of range." +
-        " Max characters " +
-        max +
-        " and Min characters " +
-        min +
-        "."
+      name +
+      " out of range." +
+      " Max characters " +
+      max +
+      " and Min characters " +
+      min +
+      "."
     );
     return false;
   } else {
@@ -139,31 +139,38 @@ function searchVaildate(node) {
 // Takes in json data and html (provided by the get or load) and then creates a dom frag with the data that frag gets appened to the html (node)
 function placerJson(data, node) {
   // on each film place it in a card
+
+  let frag = new DocumentFragment();
+
   $.each(data, (_key, value) => {
-    let frag = createCard();
+    let card = createCard();
 
     // changing the plain javascript fragment to a jquery object
-    let card = $(frag);
 
-    card.find(".card-header").text(value.title);
-    card.find(".card-title").text(value.director);
-    card.find(".card-text").text(value.review);
-    card.find(".list-group-item-primary").text(value.stars);
-    card.find(".list-group-item-success").text(value.year);
-    card.find(".btn-info").attr("name", value.pkid);
+    $(card).find(".card-header").text(value.title);
+    $(card).find(".card-title").text(value.director);
+    $(card).find(".card-text").text(value.review);
+    $(card).find(".list-group-item-primary").text(value.stars);
+    $(card).find(".list-group-item-success").text(value.year);
+    $(card).find(".btn-info").attr("name", value.pkid);
+    $(card).find(".card-img").attr("src", "/Films/image/" + value.pkid);
 
-    node.append(card[0]);
+    frag.append(card);
   });
+
+  node.append(frag);
 }
 
 // Takes in XML data and html (provided by the get or load) and then creates a dom frag with the data that frag gets appened to the html (node)
 function placerXML(element, data, node) {
   // on each film place it in a card
+
+  let frag = new DocumentFragment();
+
   $(element, data).each(function () {
-    let frag = createCard();
+    let card = createCard();
 
     // changing the plain javascript fragment to a jquery object
-    let card = $(frag);
 
     let title = $(this).find("title");
     let director = $(this).find("director");
@@ -172,20 +179,21 @@ function placerXML(element, data, node) {
     let id = $(this).find("pkid");
     let year = $(this).find("year");
 
-    card.find(".card-header").text(title[0].textContent);
-    card.find(".card-title").text(director[0].textContent);
-    card.find(".card-text").text(review[0].textContent);
-    card.find(".list-group-item-primary").text(stars[0].textContent);
-    card.find(".list-group-item-success").text(year[0].textContent);
-    card.find(".btn-info").attr("name", id[0].textContent);
+    $(card).find(".card-header").text(title[0].textContent);
+    $(card).find(".card-title").text(director[0].textContent);
+    $(card).find(".card-text").text(review[0].textContent);
+    $(card).find(".list-group-item-primary").text(stars[0].textContent);
+    $(card).find(".list-group-item-success").text(year[0].textContent);
+    $(card).find(".card-img").attr("src", "/Films/image/" + id[0].textContent);
 
-    node.append(card[0]);
+    frag.append(card);
   });
+
+  node.append(frag);
 }
 
 // Create card frag
 function createCard() {
-  let frag = new DocumentFragment();
 
   let parentDiv = document.createElement("div");
   $(parentDiv).attr({ class: "card bg-light m-1", style: "max-width: 18rem;" });
@@ -218,7 +226,6 @@ function createCard() {
 
   let filmImage = document.createElement("img");
   $(filmImage).attr("class", "card-img");
-  $(filmImage).attr("src", "http://localhost:8080/tomcat.svg");
 
   parentDiv.appendChild(headerDiv);
   bodyDiv.appendChild(titleH5);
@@ -229,9 +236,8 @@ function createCard() {
   ulGroup.appendChild(yearlist);
   parentDiv.appendChild(ulGroup);
   parentDiv.appendChild(idBttn);
-  frag.appendChild(parentDiv);
 
-  return frag;
+  return parentDiv;
 }
 
 // Create user input form frag
