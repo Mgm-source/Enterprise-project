@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
@@ -23,6 +25,8 @@ public class FilmImageService {
 
     FilmImageRepository filmImageRepository;
 
+    private static final Logger logger = LoggerFactory.getLogger(FilmResource.class);
+
     @Value("${ImageService.location}")
     private String location;
 
@@ -38,6 +42,8 @@ public class FilmImageService {
 
             if (image.isPresent()) {
                 Path filmPath = Path.of(location + image.get().getPath());
+
+                logger.info(filmPath.toString());
 
                 InputStreamResource resource = new InputStreamResource(Files.newInputStream(filmPath));
 
