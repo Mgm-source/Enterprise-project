@@ -9,6 +9,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
@@ -23,6 +25,9 @@ import jakarta.xml.bind.Marshaller;
 
 public class FilmConverter implements Converter {
 	
+
+		private static final Logger logger = LoggerFactory.getLogger(FilmConverter.class);
+
     @Override
 	public String toXML(List<Film> film) {
 
@@ -54,10 +59,8 @@ public class FilmConverter implements Converter {
 
 		        return xml;
 
-	        } catch (JAXBException JXE) {
-	            JXE.printStackTrace();
-	        } catch (ParserConfigurationException | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException PCE) {
-				PCE.printStackTrace();
+	        } catch (JAXBException| ParserConfigurationException | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException PCE) {
+				logger.debug("Context",PCE);
 			}
 	        
 	        return null;
