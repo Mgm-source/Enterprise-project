@@ -60,7 +60,7 @@ public class FilmConverter implements Converter {
 		        return xml;
 
 	        } catch (JAXBException| ParserConfigurationException | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException PCE) {
-				logger.debug("Context",PCE);
+				logger.debug("Context Misc",PCE);
 			}
 	        
 	        return null;

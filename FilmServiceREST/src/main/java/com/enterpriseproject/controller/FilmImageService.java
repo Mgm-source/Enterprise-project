@@ -43,7 +43,7 @@ public class FilmImageService {
             if (image.isPresent()) {
                 Path filmPath = Path.of(location + image.get().getPath());
 
-                logger.info(filmPath.toString());
+                logger.info("Image location {}",filmPath);
 
                 InputStreamResource resource = new InputStreamResource(Files.newInputStream(filmPath));
 
@@ -55,7 +55,7 @@ public class FilmImageService {
             }
 
         } catch (IOException ex) {
-            ex.fillInStackTrace();
+            logger.debug("Image IOException {}",ex);
         }
 
         return ResponseEntity.status(404).build();
