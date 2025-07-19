@@ -59,8 +59,8 @@ public class FilmConverter implements Converter {
 
 		        return xml;
 
-	        } catch (JAXBException| ParserConfigurationException | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException PCE) {
-				logger.debug("Context Misc",PCE);
+	        } catch (JAXBException| ParserConfigurationException | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException mPCE) {
+				logger.debug("Context Misc",mPCE);
 			}
 	        
 	        return null;
@@ -78,7 +78,7 @@ public class FilmConverter implements Converter {
 	public String toTEXT(List<Film> film) {
 		
 		Iterator<Film> iterator = film.iterator();
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		csvColumns("pkid,year,title,stars,review,director",sb);
 		
 		while(iterator.hasNext()) {
@@ -101,7 +101,7 @@ public class FilmConverter implements Converter {
 		return sb.toString();
 	}
 
-	private StringBuffer csvColumns(String columns, StringBuffer sb) {
+	private StringBuilder csvColumns(String columns, StringBuilder sb) {
 		return sb.append(columns);
 		
 	}

@@ -99,20 +99,13 @@ public class FilmResource {
 	public ResponseEntity<String> updateImage(@PathVariable int id, @RequestPart("img") MultipartFile file) {
 		try (FileOutputStream out = new FileOutputStream(location + file.getOriginalFilename())) {
 
-			try {
-
 				byte[] contentbtyes = file.getBytes();
 
 				out.write(contentbtyes);
-
 				out.flush();
-				out.close();
 
 				return ResponseEntity.ok().build();
 
-			} catch (IOException e) {
-				logger.debug("Context IOException Write ",e);
-			}
 
 		} catch (FileNotFoundException e) {
 			logger.debug("Context FileNotFoundException ",e);
