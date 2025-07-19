@@ -25,7 +25,7 @@ public class FilmImageService {
 
     FilmImageRepository filmImageRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(FilmResource.class);
+    private static final Logger logger = LoggerFactory.getLogger(FilmImageService.class);
 
     @Value("${ImageService.location}")
     private String location;
