@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.enterpriseproject.film.Film;
 import com.enterpriseproject.film.FilmRepository;
 import com.enterpriseproject.film.Films;
+
 @RestController
 @RequestMapping(value = "Films/id/{id}")
 public class FilmResource {
@@ -30,86 +31,78 @@ public class FilmResource {
 	FilmRepository filmRepository;
 
 	@Value("${ImageService.location}")
-    private String location;
+	private String location;
 
 	private static final Logger logger = LoggerFactory.getLogger(FilmResource.class);
 
 	public FilmResource(FilmRepository filmRepository) {
-        this.filmRepository = filmRepository;
-    }
+		this.filmRepository = filmRepository;
+	}
 
 	@DeleteMapping
 	public ResponseEntity<String> deleteFilm(@PathVariable int id) {
-		
-    	if(filmRepository.delete(id))
-    	{
-    		 return ResponseEntity.noContent().build();
-    	}
-    	return ResponseEntity.status(404).build();
+
+		if (filmRepository.delete(id)) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.status(404).build();
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Film>> getFilmJSON(@PathVariable int id) {
-        List<Film> film = filmRepository.findOne(id);
+		List<Film> film = filmRepository.findOne(id);
 
-        if (film != null) {
-            return ResponseEntity.ok(film);
-        }
+		if (film != null) {
+			return ResponseEntity.ok(film);
+		}
 
-        return ResponseEntity.status(404).build();
-    }
-
+		return ResponseEntity.status(404).build();
+	}
 
 	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Films> getFilmXML(@PathVariable int id) {
-        List<Film> film = filmRepository.findOne(id);
+		List<Film> film = filmRepository.findOne(id);
 
-        if (film != null) {
-	    Films filmReserve = new Films();
-            filmReserve.setFilm(film);
-            return ResponseEntity.ok(filmReserve);
-        }
+		if (film != null) {
+			Films filmReserve = new Films();
+			filmReserve.setFilmList(film);
+			return ResponseEntity.ok(filmReserve);
+		}
 
-        return ResponseEntity.status(404).build();
-    }
+		return ResponseEntity.status(404).build();
+	}
 
 	@GetMapping(produces = "text/csv")
 	public ResponseEntity<List<Film>> getFilmCSV(@PathVariable int id) {
-        List<Film> film = filmRepository.findOne(id);
+		List<Film> film = filmRepository.findOne(id);
 
-        if (film != null) {
-            return ResponseEntity.ok(film);
-        }
+		if (film != null) {
+			return ResponseEntity.ok(film);
+		}
 
-        return ResponseEntity.status(404).build();
-    }
+		return ResponseEntity.status(404).build();
+	}
 
-	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public ResponseEntity<String> updateFilm( @PathVariable int id, @RequestParam String title, @RequestParam int year,
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public ResponseEntity<String> updateFilm(@PathVariable int id, @RequestParam String title, @RequestParam int year,
 			@RequestParam String director, @RequestParam String stars,
 			@RequestParam String review) {
 
-    	if(filmRepository.update(new Film(id,title, year, director, stars, review)))
-    	{
-    		return ResponseEntity.noContent().build();
-    	}
-    	return ResponseEntity.status(404).build();
+		if (filmRepository.update(new Film(id, title, year, director, stars, review))) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.status(404).build();
 
 	}
 
-
-	@PutMapping(consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<String> updateImage(@PathVariable int id, @RequestPart("img") MultipartFile file)
-	{
-		try {
-			FileOutputStream out = new FileOutputStream(location+file.getOriginalFilename());
-
-			//filmDb.insertImageMeta(id,file.getName(),file.getContentType(),"");
+	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<String> updateImage(@PathVariable int id, @RequestPart("img") MultipartFile file) {
+		try (FileOutputStream out = new FileOutputStream(location + file.getOriginalFilename())) {
 
 			try {
-				
+
 				byte[] contentbtyes = file.getBytes();
-				
+
 				out.write(contentbtyes);
 
 				out.flush();
@@ -121,9 +114,12 @@ public class FilmResource {
 				e.printStackTrace();
 			}
 
-		} catch (FileNotFoundException e ) {
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		return ResponseEntity.status(404).build();
 	}
 

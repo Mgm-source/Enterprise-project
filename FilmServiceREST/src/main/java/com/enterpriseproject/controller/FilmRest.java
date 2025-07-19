@@ -41,7 +41,7 @@ public class FilmRest {
 
         if (film != null) {
             Films filmReserve = new Films();
-            filmReserve.setFilm(film);
+            filmReserve.setFilmList(film);
             return ResponseEntity.ok(filmReserve);
         }
 
@@ -65,7 +65,7 @@ public class FilmRest {
 
         if (film != null) {
 	    Films filmReserve = new Films();
-            filmReserve.setFilm(film);
+            filmReserve.setFilmList(film);
             return ResponseEntity.ok(filmReserve);
         }
 

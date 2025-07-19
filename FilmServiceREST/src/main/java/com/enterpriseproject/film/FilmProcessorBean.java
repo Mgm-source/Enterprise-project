@@ -19,7 +19,7 @@ public class FilmProcessorBean {
     
     public void process(Films films)
     {
-        films.getFilm().forEach( (film) -> {
+        films.getfilmList().forEach( (film) -> {
 
             List<Film> dbFilms = filmRepository.findByTitleAndYearAndDirector(film.getTitle(), film.getYear(), film.getDirector());
             

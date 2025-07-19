@@ -11,8 +11,6 @@ import jakarta.persistence.Table;
 @Table(name = "ImageMetadata")
 public class FilmImage {
 
-    public FilmImage() {}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer pkid;

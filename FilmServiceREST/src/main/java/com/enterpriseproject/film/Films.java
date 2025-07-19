@@ -16,15 +16,13 @@ public class Films {
 	@XmlElement(name = "Film")
 	private List<Film> filmlist;
 	
-	public Films() {}
-	
-	public void setFilm(List<Film> filmlist) {
+	public void setFilmList(List<Film> filmlist) {
 		this.filmlist = filmlist;
 		
 	}
 
 	@JacksonXmlElementWrapper(useWrapping = false)
-	public List<Film> getFilm() {
+	public List<Film> getfilmList() {
 		return filmlist;
 	}
 

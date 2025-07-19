@@ -15,8 +15,6 @@ public class Film {
 	private String director;
 	private String stars;
 	private String review;
-	
-	public Film() {}
 
 	public int getPkid() {
 		return pkid;
