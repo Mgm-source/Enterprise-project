@@ -111,13 +111,13 @@ public class FilmResource {
 				return ResponseEntity.ok().build();
 
 			} catch (IOException e) {
-				logger.debug("Context IOException Write {}",e);
+				logger.debug("Context IOException Write ",e);
 			}
 
 		} catch (FileNotFoundException e) {
-			logger.debug("Context FileNotFoundException {}",e);
+			logger.debug("Context FileNotFoundException ",e);
 		} catch (IOException e) {
-			logger.debug("Context IOException File {}",e);
+			logger.debug("Context IOException File ",e);
 		}
 
 		return ResponseEntity.status(404).build();
