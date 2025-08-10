@@ -45,7 +45,7 @@ public class FilmConverter implements Converter {
 	            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 	            
 	            Films filmReserve = new Films();
-	            filmReserve.setFilmList(film);
+	            filmReserve.setFilms(film);
 	            
 	            m.marshal(filmReserve, document);
 	            

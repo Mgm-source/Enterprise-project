@@ -56,7 +56,7 @@ public class FilmController {
 		}
 
 		Films filmReserve = new Films();
-		filmReserve.setFilmList(films);
+		filmReserve.setFilms(films);
 		return ResponseEntity.ok(filmReserve);
 
 	}

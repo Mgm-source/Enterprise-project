@@ -41,7 +41,7 @@ public class FilmsController {
 
         if (film != null) {
             Films filmReserve = new Films();
-            filmReserve.setFilmList(film);
+            filmReserve.setFilms(film);
             return ResponseEntity.ok(filmReserve);
         }
 
@@ -65,7 +65,7 @@ public class FilmsController {
 
         if (film != null) {
 	    Films filmReserve = new Films();
-            filmReserve.setFilmList(film);
+            filmReserve.setFilms(film);
             return ResponseEntity.ok(filmReserve);
         }
 
