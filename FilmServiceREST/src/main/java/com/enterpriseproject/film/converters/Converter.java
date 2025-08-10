@@ -1,4 +1,4 @@
-package com.enterpriseproject.film.Converters;
+package com.enterpriseproject.film.converters;
 
 import java.util.List;
 

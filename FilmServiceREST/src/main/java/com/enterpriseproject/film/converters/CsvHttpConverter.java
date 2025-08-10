@@ -1,4 +1,4 @@
-package com.enterpriseproject.film.Converters;
+package com.enterpriseproject.film.converters;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

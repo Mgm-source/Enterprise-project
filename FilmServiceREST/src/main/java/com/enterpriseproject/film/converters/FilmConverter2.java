@@ -1,4 +1,4 @@
-package com.enterpriseproject.film.Converters;
+package com.enterpriseproject.film.converters;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

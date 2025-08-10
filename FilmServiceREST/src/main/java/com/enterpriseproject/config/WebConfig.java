@@ -7,7 +7,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.enterpriseproject.film.Converters.CsvHttpConverter;
+import com.enterpriseproject.film.converters.CsvHttpConverter;
 
 
 @Configuration
