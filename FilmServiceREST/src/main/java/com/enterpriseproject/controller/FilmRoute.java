@@ -1,11 +1,9 @@
 package com.enterpriseproject.controller;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.enterpriseproject.film.FilmProcessorBean;
 import com.enterpriseproject.film.Films;
 @Component
 public class FilmRoute extends RouteBuilder{
@@ -16,9 +14,6 @@ public class FilmRoute extends RouteBuilder{
     String userName;
     @Value("${ftpSetting.password}")
     String password;
-
-    @Autowired
-    FilmProcessorBean filmProcessorBean;
 
     @Override
     public void configure() throws Exception {
@@ -32,8 +27,8 @@ public class FilmRoute extends RouteBuilder{
         from("jms:incomingFTPFilms")
             .routeId("FilmsRouteQueue")
             .unmarshal().jacksonXml(Films.class)
-            .split().method("getFilmList")
-            .bean(filmProcessorBean, "process");
+            .split(body().method("getFilmList"))
+            .bean("filmProcessorBean", "process");
     }
 
 

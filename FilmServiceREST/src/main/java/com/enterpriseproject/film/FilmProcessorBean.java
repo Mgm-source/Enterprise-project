@@ -12,8 +12,12 @@ public class FilmProcessorBean {
 
     private static final Logger logger = LoggerFactory.getLogger(FilmProcessorBean.class);
 
+    private final FilmRepository filmRepository;
+
     @Autowired
-    FilmRepository filmRepository;
+    public FilmProcessorBean(FilmRepository filmRepository) {
+        this.filmRepository = filmRepository;
+    }
     
     public void process(Film film)
     {

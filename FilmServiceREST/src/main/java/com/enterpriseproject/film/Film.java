@@ -16,6 +16,9 @@ public class Film {
 	private String stars;
 	private String review;
 
+	public Film() {
+	}
+
 	public int getPkid() {
 		return pkid;
 	}

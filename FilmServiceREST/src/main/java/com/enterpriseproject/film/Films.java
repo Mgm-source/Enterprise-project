@@ -22,7 +22,7 @@ public class Films {
 	}
 
 	@JacksonXmlElementWrapper(useWrapping = false)
-	public List<Film> getfilmList() {
+	public List<Film> getFilmList() {
 		return filmlist;
 	}
 
