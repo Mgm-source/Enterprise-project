@@ -1,6 +1,9 @@
 package com.enterpriseproject.controller;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -27,7 +30,7 @@ public class FilmImageController {
     private static final Logger logger = LoggerFactory.getLogger(FilmImageController.class);
 
     private final FilmImageStorageService filmImageStorageService;
-    
+
     public FilmImageController(FilmImageStorageService filmImageStorageService) {
         this.filmImageStorageService = filmImageStorageService;
     }
@@ -39,10 +42,21 @@ public class FilmImageController {
 
             Resource resource = filmImageStorageService.loadImage(id);
 
+             MediaType mediaType = MediaType.APPLICATION_OCTET_STREAM;
+
+            if (resource.getFilename() != null) {
+                // Guess the MIME type using the file extension
+                Path path = Paths.get(resource.getFilename());
+                String mimeType = Files.probeContentType(path);
+                if (mimeType != null) {
+                    mediaType = MediaType.parseMediaType(mimeType);
+                }
+            }
+
             return ResponseEntity.ok()
-                    .header("Content-Disposition", "attachment; filename=\"" + resource.getFilename() + "\"")
+                    .header("Content-Disposition", "inline; filename=\"" + resource.getFilename() + "\"")
                     .contentLength(resource.contentLength())
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .contentType(mediaType)
                     .body(resource);
 
         } catch (IOException ex) {
@@ -58,7 +72,9 @@ public class FilmImageController {
     public ResponseEntity<String> uploadImage(@PathVariable int id, @RequestPart("img") MultipartFile file) {
 
         try {
-            if (filmImageStorageService.uploadToDisk(new FilmImage(id, UUID.randomUUID().toString()+ "-" +file.getOriginalFilename()), file.getBytes())) {
+            if (filmImageStorageService.uploadToDisk(
+                    new FilmImage(id, UUID.randomUUID().toString() + "-" + file.getOriginalFilename()),
+                    file.getBytes())) {
 
                 return ResponseEntity.ok().build();
             }
