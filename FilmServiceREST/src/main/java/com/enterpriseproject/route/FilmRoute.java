@@ -27,7 +27,7 @@ public class FilmRoute extends RouteBuilder{
         from("jms:incomingFTPFilms")
             .routeId("FilmsRouteQueue")
             .unmarshal().jacksonXml(Films.class)
-            .split(body().method("getFilmList"))
+            .split(body().method("getFilms"))
             .bean("filmProcessorBean", "process");
     }
 
