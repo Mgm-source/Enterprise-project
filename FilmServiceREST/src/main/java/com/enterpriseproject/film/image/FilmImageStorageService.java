@@ -28,7 +28,7 @@ public class FilmImageStorageService {
         this.filmImageRepository = filmImageRepository;
     }
 
-    public Resource loadImage(int id) throws IOException {
+    public FileSystemResource loadImage(int id) throws IOException {
 
         Optional<FilmImage> image = filmImageRepository.findByFilmId(id);
 
