@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FilmConverter2 {
 
     @Bean
-    public MessageConverter MarshallingConvertor(ObjectMapper objectMapper) {
+    public MessageConverter marshallingConverter(ObjectMapper objectMapper) {
 
         // Initialize JAXBContext and marshaller/unmarshaller
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
