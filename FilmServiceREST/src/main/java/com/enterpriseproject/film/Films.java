@@ -9,7 +9,7 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "films")
+@XmlRootElement(name = "Films")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Films {
 	
