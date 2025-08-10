@@ -13,6 +13,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Films {
 	
+	@JacksonXmlElementWrapper(useWrapping = false)
 	@XmlElement(name = "Film")
 	private List<Film> filmlist;
 	
@@ -21,7 +22,6 @@ public class Films {
 		
 	}
 
-	@JacksonXmlElementWrapper(useWrapping = false)
 	public List<Film> getFilmList() {
 		return filmlist;
 	}
