@@ -40,34 +40,38 @@ public class FilmController {
 		List<Film> films = filmRepository.findOne(id);
 
 		if (films.isEmpty()) {
-			return ResponseEntity.ok(films);
+			return ResponseEntity.status(404).build();
 		}
+		return ResponseEntity.ok(films);
 
-		return ResponseEntity.status(404).build();
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Films> getFilmXML(@PathVariable int id) {
+
 		List<Film> films = filmRepository.findOne(id);
 
 		if (films.isEmpty()) {
-			Films filmReserve = new Films();
-			filmReserve.setFilmList(films);
-			return ResponseEntity.ok(filmReserve);
+			return ResponseEntity.status(404).build();
 		}
 
-		return ResponseEntity.status(404).build();
+		Films filmReserve = new Films();
+		filmReserve.setFilmList(films);
+		return ResponseEntity.ok(filmReserve);
+
 	}
 
 	@GetMapping(produces = "text/csv")
 	public ResponseEntity<List<Film>> getFilmCSV(@PathVariable int id) {
+
 		List<Film> films = filmRepository.findOne(id);
 
 		if (films.isEmpty()) {
-			return ResponseEntity.ok(films);
+			return ResponseEntity.status(404).build();
 		}
+		
+		return ResponseEntity.ok(films);
 
-		return ResponseEntity.status(404).build();
 	}
 
 	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
