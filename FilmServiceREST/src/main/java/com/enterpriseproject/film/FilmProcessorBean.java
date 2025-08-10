@@ -22,12 +22,12 @@ public class FilmProcessorBean {
         if(dbFilms != null && dbFilms.isEmpty())
         {
             filmRepository.save(film);
-            logger.info("Film added:\n" + film.toString());
+            logger.info("Film added: {}" , film);
         }
         else
         {
-            logger.info("Film not added;\n" + film.toString());
+            logger.info("Film not added: {}", film);
         }
-        
+
     }
 }
