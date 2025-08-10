@@ -7,31 +7,27 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.enterpriseproject.controller.FilmResource;
-
 @Component
 public class FilmProcessorBean {
 
-    private static final Logger logger = LoggerFactory.getLogger(FilmResource.class);
+    private static final Logger logger = LoggerFactory.getLogger(FilmProcessorBean.class);
 
     @Autowired
     FilmRepository filmRepository;
     
-    public void process(Films films)
+    public void process(Film film)
     {
-        films.getfilmList().forEach( (film) -> {
-
-            List<Film> dbFilms = filmRepository.findByTitleAndYearAndDirector(film.getTitle(), film.getYear(), film.getDirector());
+        List<Film> dbFilms = filmRepository.findByTitleAndYearAndDirector(film.getTitle(), film.getYear(), film.getDirector());
             
-            if(dbFilms != null && dbFilms.isEmpty())
-            {
-                filmRepository.save(film);
-                logger.info("Film added:\n" + film.toString());
-            }
-            else
-            {
-                logger.info("Film not added;\n" + film.toString());
-            }
-        });
+        if(dbFilms != null && dbFilms.isEmpty())
+        {
+            filmRepository.save(film);
+            logger.info("Film added:\n" + film.toString());
+        }
+        else
+        {
+            logger.info("Film not added;\n" + film.toString());
+        }
+        
     }
 }

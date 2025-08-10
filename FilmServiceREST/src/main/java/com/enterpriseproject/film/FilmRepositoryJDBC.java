@@ -39,7 +39,7 @@ public class FilmRepositoryJDBC implements FilmRepository {
                 film.getTitle(),film.getYear(),film.getDirector(),film.getStars(),film.getReview()) > 0;
     }
 
-    Film mapFilmRowToFilm(ResultSet rs , int _n) throws SQLException
+    Film mapFilmRowToFilm(ResultSet rs , int n) throws SQLException
     {
         return new Film(
         rs.getInt("pkid"),

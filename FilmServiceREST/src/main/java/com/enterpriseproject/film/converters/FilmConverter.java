@@ -57,9 +57,7 @@ public class FilmConverter implements Converter {
 		        output.setCharacterStream(writer);
 		        serializer.write(document, output);
 		        
-		        String xml = writer.toString();
-
-		        return xml;
+		        return writer.toString();
 
 	        } catch (JAXBException| ParserConfigurationException | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException mPCE) {
 				logger.debug("Context Misc",mPCE);
@@ -72,8 +70,7 @@ public class FilmConverter implements Converter {
 
 	@Override
 	public String toJSON(List<Film> film) {
-	        String json = new Gson().toJson(film);
-		return json;
+		return new Gson().toJson(film);
 	}
 
 	@Override
