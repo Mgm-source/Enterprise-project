@@ -1,6 +1,8 @@
-package com.enterpriseproject.film;
+package com.enterpriseproject.film.Converters;
 
 import java.util.List;
+
+import com.enterpriseproject.film.Film;
 
 public interface Converter {
 	

@@ -1,4 +1,4 @@
-package com.enterpriseproject.film;
+package com.enterpriseproject.film.Converters;
 
 import java.io.StringWriter;
 import java.io.Writer;
@@ -17,6 +17,8 @@ import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
 
+import com.enterpriseproject.film.Film;
+import com.enterpriseproject.film.Films;
 import com.google.gson.Gson;
 
 import jakarta.xml.bind.JAXBContext;

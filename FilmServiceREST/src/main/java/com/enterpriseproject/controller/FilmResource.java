@@ -1,13 +1,7 @@
 package com.enterpriseproject.controller;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,9 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.enterpriseproject.film.Film;
 import com.enterpriseproject.film.FilmRepository;
@@ -29,11 +21,6 @@ import com.enterpriseproject.film.Films;
 public class FilmResource {
 
 	FilmRepository filmRepository;
-
-	@Value("${ImageService.location}")
-	private String location;
-
-	private static final Logger logger = LoggerFactory.getLogger(FilmResource.class);
 
 	public FilmResource(FilmRepository filmRepository) {
 		this.filmRepository = filmRepository;
@@ -50,10 +37,10 @@ public class FilmResource {
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Film>> getFilmJSON(@PathVariable int id) {
-		List<Film> film = filmRepository.findOne(id);
+		List<Film> films = filmRepository.findOne(id);
 
-		if (film != null) {
-			return ResponseEntity.ok(film);
+		if (films.isEmpty()) {
+			return ResponseEntity.ok(films);
 		}
 
 		return ResponseEntity.status(404).build();
@@ -61,11 +48,11 @@ public class FilmResource {
 
 	@GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
 	public ResponseEntity<Films> getFilmXML(@PathVariable int id) {
-		List<Film> film = filmRepository.findOne(id);
+		List<Film> films = filmRepository.findOne(id);
 
-		if (film != null) {
+		if (films.isEmpty()) {
 			Films filmReserve = new Films();
-			filmReserve.setFilmList(film);
+			filmReserve.setFilmList(films);
 			return ResponseEntity.ok(filmReserve);
 		}
 
@@ -74,10 +61,10 @@ public class FilmResource {
 
 	@GetMapping(produces = "text/csv")
 	public ResponseEntity<List<Film>> getFilmCSV(@PathVariable int id) {
-		List<Film> film = filmRepository.findOne(id);
+		List<Film> films = filmRepository.findOne(id);
 
-		if (film != null) {
-			return ResponseEntity.ok(film);
+		if (films.isEmpty()) {
+			return ResponseEntity.ok(films);
 		}
 
 		return ResponseEntity.status(404).build();
@@ -93,27 +80,6 @@ public class FilmResource {
 		}
 		return ResponseEntity.status(404).build();
 
-	}
-
-	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<String> updateImage(@PathVariable int id, @RequestPart("img") MultipartFile file) {
-		try (FileOutputStream out = new FileOutputStream(location + file.getOriginalFilename())) {
-
-				byte[] contentbtyes = file.getBytes();
-
-				out.write(contentbtyes);
-				out.flush();
-
-				return ResponseEntity.ok().build();
-
-
-		} catch (FileNotFoundException e) {
-			logger.debug("Context FileNotFoundException ",e);
-		} catch (IOException e) {
-			logger.debug("Context IOException File ",e);
-		}
-
-		return ResponseEntity.status(404).build();
 	}
 
 }

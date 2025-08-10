@@ -1,4 +1,4 @@
-package com.enterpriseproject.film;
+package com.enterpriseproject.film.Converters;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -8,6 +8,8 @@ import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.AbstractHttpMessageConverter;
+
+import com.enterpriseproject.film.Film;
 
 
 public class CsvHttpConverter extends AbstractHttpMessageConverter<List<Film>> {
@@ -20,7 +22,7 @@ public class CsvHttpConverter extends AbstractHttpMessageConverter<List<Film>> {
 	}
 
 	@Override
-	protected void writeInternal(List<Film> films, HttpOutputMessage outputMessage) {
+	protected void writeInternal(@SuppressWarnings("null") List<Film> films, @SuppressWarnings("null") HttpOutputMessage outputMessage) {
 
         	try (OutputStreamWriter writer = new OutputStreamWriter(outputMessage.getBody())){
 			writer.write(converter.toTEXT(films));
@@ -30,13 +32,14 @@ public class CsvHttpConverter extends AbstractHttpMessageConverter<List<Film>> {
 		}
 	}
 
+	@SuppressWarnings("null")
 	@Override
-	protected List<Film> readInternal(Class<? extends List<Film>> clazz, HttpInputMessage inputMessage) {
+	protected List<Film> readInternal(@SuppressWarnings("null") Class<? extends List<Film>> clazz, @SuppressWarnings("null") HttpInputMessage inputMessage) {
     		throw new UnsupportedOperationException("CSV input not supported");
 	}
 	
 	@Override
-	protected boolean supports(Class<?> clazz) {
+	protected boolean supports(@SuppressWarnings("null") Class<?> clazz) {
 		return List.class.isAssignableFrom(clazz);
 	}
 }	

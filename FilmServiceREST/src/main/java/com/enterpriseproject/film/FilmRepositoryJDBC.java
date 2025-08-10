@@ -2,6 +2,7 @@ package com.enterpriseproject.film;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -28,7 +29,7 @@ public class FilmRepositoryJDBC implements FilmRepository {
         }
         catch (EmptyResultDataAccessException emptyResultDataAccessException)
         {
-            return null;
+            return Collections.emptyList();
         } 
     }
 
@@ -56,7 +57,7 @@ public class FilmRepositoryJDBC implements FilmRepository {
         }
         catch (EmptyResultDataAccessException emptyResultDataAccessException)
         {
-            return null;
+            return Collections.emptyList();
         } 
     }
 
@@ -78,7 +79,7 @@ public class FilmRepositoryJDBC implements FilmRepository {
         }
         catch (EmptyResultDataAccessException emptyResultDataAccessException)
         {
-            return null;
+            return Collections.emptyList();
         }
     }
 }

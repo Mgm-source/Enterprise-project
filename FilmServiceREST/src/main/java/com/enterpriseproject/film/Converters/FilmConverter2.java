@@ -1,4 +1,4 @@
-package com.enterpriseproject.film;
+package com.enterpriseproject.film.Converters;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +7,7 @@ import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
+import com.enterpriseproject.film.Films;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
