@@ -14,7 +14,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class Films {
 	
 	@JacksonXmlElementWrapper(useWrapping = false)
-	@XmlElement(name = "Film")
+	@XmlElement(name = "film")
 	private List<Film> filmlist;
 	
 	public void setFilmList(List<Film> filmlist) {
