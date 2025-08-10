@@ -1,6 +1,7 @@
 package com.enterpriseproject.controller;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +60,7 @@ public class FilmImageController {
     public ResponseEntity<String> uploadImage(@PathVariable int id, @RequestPart("img") MultipartFile file) {
 
         try {
-            if (filmImageStorageService.uploadToDisk(new FilmImage(id, file.getOriginalFilename()), file.getBytes())) {
+            if (filmImageStorageService.uploadToDisk(new FilmImage(id, UUID.randomUUID().toString()+ "-" +file.getOriginalFilename()), file.getBytes())) {
 
                 return ResponseEntity.ok().build();
             }
