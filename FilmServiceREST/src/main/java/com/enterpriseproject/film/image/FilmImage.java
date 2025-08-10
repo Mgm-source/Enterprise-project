@@ -13,11 +13,19 @@ public class FilmImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer pkid;
-	Integer filmId;
+    Integer pkid;
+    Integer filmId;
     @Column(name = "Path")
-	String path;
-	String description;
+    String path;
+    String description;
+
+    public FilmImage() {
+    }
+
+    public FilmImage(Integer filmId, String path) {
+        this.filmId = filmId;
+        this.path = path;
+    }
 
     public Integer getPkid() {
         return pkid;

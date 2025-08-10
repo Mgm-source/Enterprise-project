@@ -17,11 +17,11 @@ import com.enterpriseproject.film.Films;
 
 @RestController
 @RequestMapping(value = "Films")
-public class FilmRest {
+public class FilmsController {
 
     FilmRepository filmRepository;
 
-    public FilmRest(FilmRepository filmRepository) {
+    public FilmsController(FilmRepository filmRepository) {
         this.filmRepository = filmRepository;
     }
 

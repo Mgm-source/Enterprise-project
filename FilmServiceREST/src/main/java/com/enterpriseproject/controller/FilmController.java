@@ -18,11 +18,11 @@ import com.enterpriseproject.film.Films;
 
 @RestController
 @RequestMapping(value = "Films/id/{id}")
-public class FilmResource {
+public class FilmController {
 
 	FilmRepository filmRepository;
 
-	public FilmResource(FilmRepository filmRepository) {
+	public FilmController(FilmRepository filmRepository) {
 		this.filmRepository = filmRepository;
 	}
 

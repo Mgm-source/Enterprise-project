@@ -30,6 +30,9 @@ class FilmProcessorBeanTest {
         film.setTitle("Inception");
         film.setYear(2010);
         film.setDirector("Christopher Nolan");
+        film.setReview("good");
+        film.setStars("me");
+        film.setPkid(0);
 
         // Mock: Film not found in DB
         when(filmRepository.findByTitleAndYearAndDirector(film.getTitle(), film.getYear(), film.getDirector()))
@@ -49,6 +52,9 @@ class FilmProcessorBeanTest {
         film.setTitle("Inception");
         film.setYear(2010);
         film.setDirector("Christopher Nolan");
+        film.setReview("good");
+        film.setStars("me");
+        film.setPkid(0);
 
         // Mock: Film already exists
         when(filmRepository.findByTitleAndYearAndDirector(film.getTitle(), film.getYear(), film.getDirector()))
@@ -68,6 +74,9 @@ class FilmProcessorBeanTest {
         film.setTitle("Inception");
         film.setYear(2010);
         film.setDirector("Christopher Nolan");
+        film.setReview("good");
+        film.setStars("me");
+        film.setPkid(0);
 
         // Mock: Film not found in DB
         when(filmRepository.findByTitleAndYearAndDirector(film.getTitle(), film.getYear(), film.getDirector()))

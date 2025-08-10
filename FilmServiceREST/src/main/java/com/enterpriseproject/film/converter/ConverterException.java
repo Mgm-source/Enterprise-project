@@ -1,4 +1,4 @@
-package com.enterpriseproject.film.converters;
+package com.enterpriseproject.film.converter;
 
 public class ConverterException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package com.enterpriseproject.controller;
+package com.enterpriseproject.route;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Value;
