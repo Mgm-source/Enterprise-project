@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +26,8 @@ public class FilmImageController {
 
     private static final Logger logger = LoggerFactory.getLogger(FilmImageController.class);
 
-    private FilmImageStorageService filmImageStorageService;
-
-    @Autowired
+    private final FilmImageStorageService filmImageStorageService;
+    
     public FilmImageController(FilmImageStorageService filmImageStorageService) {
         this.filmImageStorageService = filmImageStorageService;
     }
