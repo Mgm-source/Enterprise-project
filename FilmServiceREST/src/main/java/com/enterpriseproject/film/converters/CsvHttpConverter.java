@@ -11,7 +11,6 @@ import org.springframework.http.converter.AbstractHttpMessageConverter;
 
 import com.enterpriseproject.film.Film;
 
-
 public class CsvHttpConverter extends AbstractHttpMessageConverter<List<Film>> {
 
 	 private final FilmConverter converter = new FilmConverter();
@@ -28,7 +27,7 @@ public class CsvHttpConverter extends AbstractHttpMessageConverter<List<Film>> {
 			writer.write(converter.toTEXT(films));
 		} catch (IOException e) {
 
-			throw new RuntimeException("Error writing CSV output", e);
+			throw new ConverterException("Error writing CSV output", e);
 		}
 	}
 
