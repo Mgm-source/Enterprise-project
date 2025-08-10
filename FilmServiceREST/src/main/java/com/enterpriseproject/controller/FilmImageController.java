@@ -1,10 +1,11 @@
 package com.enterpriseproject.controller;
 
 import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,11 +34,11 @@ public class FilmImageController {
     }
 
     @GetMapping
-    public ResponseEntity<InputStreamResource> getFilmImage(@PathVariable int id) {
+    public ResponseEntity<Resource> getFilmImage(@PathVariable int id) {
 
         try {
 
-            InputStreamResource resource = filmImageStorageService.loadImage(id);
+            Resource resource = filmImageStorageService.loadImage(id);
 
             return ResponseEntity.ok()
                     .header("Content-Disposition", "attachment; filename=\"" + resource.getFilename() + "\"")

@@ -290,7 +290,7 @@ function updateFilm(id) {
 		console.log(...formData.entries());
 
 		$.ajax({
-			url: BASE_URL + "\\id\\" + id,
+			url: BASE_URL + "\\image\\" + id,
 			processData: false,
 			contentType: false,
 			method: "put",

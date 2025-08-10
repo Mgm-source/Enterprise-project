@@ -4,15 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,12 +24,11 @@ public class FilmImageStorageService {
     @Value("${ImageService.location}")
     private String location;
 
-    @Autowired
     public FilmImageStorageService(FilmImageRepository filmImageRepository) {
         this.filmImageRepository = filmImageRepository;
     }
 
-    public InputStreamResource loadImage(int id) throws IOException {
+    public Resource loadImage(int id) throws IOException {
 
         Optional<FilmImage> image = filmImageRepository.findByFilmId(id);
 
@@ -39,7 +37,7 @@ public class FilmImageStorageService {
 
             logger.info("Image location {} ", filmPath);
 
-            return new InputStreamResource(Files.newInputStream(filmPath));
+            return new FileSystemResource(filmPath);
         }
 
         throw new FilmImageNotFoundException("Film not found with " + id);
