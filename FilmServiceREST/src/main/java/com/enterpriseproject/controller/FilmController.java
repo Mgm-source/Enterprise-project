@@ -37,6 +37,7 @@ public class FilmController {
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Film>> getFilmJSON(@PathVariable int id) {
+		
 		List<Film> films = filmRepository.findOne(id);
 
 		if (films.isEmpty()) {

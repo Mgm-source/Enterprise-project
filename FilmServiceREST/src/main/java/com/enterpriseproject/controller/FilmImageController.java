@@ -61,8 +61,8 @@ public class FilmImageController {
 
         } catch (IOException ex) {
             logger.debug("IOException", ex);
-        } catch (FilmImageNotFoundException FINFE) {
-            logger.debug("FilmImageNotFoundException", FINFE);
+        } catch (FilmImageNotFoundException finfe) {
+            logger.debug("FilmImageNotFoundException", finfe);
         }
 
         return ResponseEntity.status(404).build();
