@@ -1,0 +1,23 @@
+ftpSetting:
+  user: ${FTP_USER} 
+  password : ${FTP_PASS} 
+  location : ${FTP_LOCATION} 
+
+ImageService:
+  location: ${IMAGE_LOCATION} 
+
+spring:
+  datasource:
+    url: jdbc:mysql://${DB_HOST};databaseName=${DB_NAME};${DB_OPTIONS}
+    username: ${DB_USER} 
+    password: ${DB_PASS}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+  activemq:
+    broker-url: tcp://${ACTIVEMQ_HOST}:${ACTIVEMQ_PORT}
+    user: ${ACTIVEMQ_USER} 
+    password: ${ACTIVEMQ_PASS}
