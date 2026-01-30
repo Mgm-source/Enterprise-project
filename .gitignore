@@ -5,4 +5,3 @@ build/
 *.class
 *.jar
 docker-compose.yaml
-application.yaml
