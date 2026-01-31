@@ -2,6 +2,7 @@ target/
 build/
 .vscode/
 .vs/
+filmImages/
 *.class
 *.jar
 docker-compose.yaml
