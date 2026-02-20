@@ -5,6 +5,8 @@ ftpSetting:
 
 ImageService:
   location: ${IMAGE_LOCATION} 
+server:
+    forward-headers-strategy: framework
 
 spring:
   datasource:
@@ -21,3 +23,4 @@ spring:
     broker-url: tcp://${ACTIVEMQ_HOST}:${ACTIVEMQ_PORT}
     user: ${ACTIVEMQ_USER} 
     password: ${ACTIVEMQ_PASS}
+    
