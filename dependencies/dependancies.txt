@@ -1,90 +1,90 @@
 .:
 total 16
-drwxrwxr-x 2 munashe munashe 4096 Jan 30 17:21 Gson
-drwxrwxr-x 2 munashe munashe 4096 Jan 30 17:21 JSTL
-drwxrwxr-x 3 munashe munashe 4096 Jan 30 17:21 Rest Api
--rw-rw-r-- 1 munashe munashe    0 Feb  9 07:00 dependancies.txt
-drwxrwxr-x 3 munashe munashe 4096 Jan 30 17:21 jaxb-ri
+drwxrwxr-x 2  4096 Jan 30 17:21 Gson
+drwxrwxr-x 2  4096 Jan 30 17:21 JSTL
+drwxrwxr-x 3  4096 Jan 30 17:21 Rest Api
+-rw-rw-r-- 1     0 Feb  9 07:00 dependancies.txt
+drwxrwxr-x 3  4096 Jan 30 17:21 jaxb-ri
 
 ./Gson:
 total 236
--rw-rw-r-- 1 munashe munashe 241622 Jan 30 17:21 gson-2.8.5.jar
+-rw-rw-r-- 1  241622 Jan 30 17:21 gson-2.8.5.jar
 
 ./JSTL:
 total 404
--rw-rw-r-- 1 munashe munashe 206430 Jan 30 17:21 taglibs-standard-impl-1.2.5.jar
--rw-rw-r-- 1 munashe munashe 163271 Jan 30 17:21 taglibs-standard-jstlel-1.2.5.jar
--rw-rw-r-- 1 munashe munashe  40153 Jan 30 17:21 taglibs-standard-spec-1.2.5.jar
+-rw-rw-r-- 1  206430 Jan 30 17:21 taglibs-standard-impl-1.2.5.jar
+-rw-rw-r-- 1  163271 Jan 30 17:21 taglibs-standard-jstlel-1.2.5.jar
+-rw-rw-r-- 1   40153 Jan 30 17:21 taglibs-standard-spec-1.2.5.jar
 
 ./Rest Api:
 total 4
-drwxrwxr-x 5 munashe munashe 4096 Jan 30 17:21 jaxrs-ri
+drwxrwxr-x 5  4096 Jan 30 17:21 jaxrs-ri
 
 ./Rest Api/jaxrs-ri:
 total 56
--rw-rw-r-- 1 munashe munashe 35082 Jan 30 17:21 Jersey-LICENSE.md
--rw-rw-r-- 1 munashe munashe  4294 Jan 30 17:21 NOTICE.md
-drwxrwxr-x 2 munashe munashe  4096 Jan 30 17:21 api
-drwxrwxr-x 2 munashe munashe  4096 Jan 30 17:21 ext
-drwxrwxr-x 2 munashe munashe  4096 Jan 30 17:21 lib
+-rw-rw-r-- 1  35082 Jan 30 17:21 Jersey-LICENSE.md
+-rw-rw-r-- 1   4294 Jan 30 17:21 NOTICE.md
+drwxrwxr-x 2   4096 Jan 30 17:21 api
+drwxrwxr-x 2   4096 Jan 30 17:21 ext
+drwxrwxr-x 2   4096 Jan 30 17:21 lib
 
 ./Rest Api/jaxrs-ri/api:
 total 140
--rw-rw-r-- 1 munashe munashe 140376 Jan 30 17:21 jakarta.ws.rs-api-2.1.6.jar
+-rw-rw-r-- 1  140376 Jan 30 17:21 jakarta.ws.rs-api-2.1.6.jar
 
 ./Rest Api/jaxrs-ri/ext:
 total 3280
--rw-rw-r-- 1 munashe munashe  27006 Jan 30 17:21 aopalliance-repackaged-2.6.1.jar
--rw-rw-r-- 1 munashe munashe 200223 Jan 30 17:21 hk2-api-2.6.1.jar
--rw-rw-r-- 1 munashe munashe 203358 Jan 30 17:21 hk2-locator-2.6.1.jar
--rw-rw-r-- 1 munashe munashe 131590 Jan 30 17:21 hk2-utils-2.6.1.jar
--rw-rw-r-- 1 munashe munashe  46613 Jan 30 17:21 jakarta.activation-api-1.2.2.jar
--rw-rw-r-- 1 munashe munashe  25058 Jan 30 17:21 jakarta.annotation-api-1.3.5.jar
--rw-rw-r-- 1 munashe munashe  18140 Jan 30 17:21 jakarta.inject-2.6.1.jar
--rw-rw-r-- 1 munashe munashe 114065 Jan 30 17:21 jakarta.json-1.1.6-module.jar
--rw-rw-r-- 1 munashe munashe 140425 Jan 30 17:21 jakarta.json-1.1.6.jar
--rw-rw-r-- 1 munashe munashe  43361 Jan 30 17:21 jakarta.json-api-1.1.6.jar
--rw-rw-r-- 1 munashe munashe  35321 Jan 30 17:21 jakarta.json.bind-api-1.0.2.jar
--rw-rw-r-- 1 munashe munashe 164392 Jan 30 17:21 jakarta.persistence-api-2.2.3.jar
--rw-rw-r-- 1 munashe munashe  82872 Jan 30 17:21 jakarta.servlet-api-4.0.3.jar
--rw-rw-r-- 1 munashe munashe  91930 Jan 30 17:21 jakarta.validation-api-2.0.2.jar
--rw-rw-r-- 1 munashe munashe 246372 Jan 30 17:21 jakarta.ws.rs-api-2.1.6-sources.jar
--rw-rw-r-- 1 munashe munashe 115638 Jan 30 17:21 jakarta.xml.bind-api-2.3.3.jar
--rw-rw-r-- 1 munashe munashe 780265 Jan 30 17:21 javassist-3.25.0-GA.jar
--rw-rw-r-- 1 munashe munashe 475256 Jan 30 17:21 org.osgi.core-6.0.0.jar
--rw-rw-r-- 1 munashe munashe  19479 Jan 30 17:21 osgi-resource-locator-1.0.3.jar
--rw-rw-r-- 1 munashe munashe 351302 Jan 30 17:21 yasson-1.0.6.jar
+-rw-rw-r-- 1   27006 Jan 30 17:21 aopalliance-repackaged-2.6.1.jar
+-rw-rw-r-- 1  200223 Jan 30 17:21 hk2-api-2.6.1.jar
+-rw-rw-r-- 1  203358 Jan 30 17:21 hk2-locator-2.6.1.jar
+-rw-rw-r-- 1  131590 Jan 30 17:21 hk2-utils-2.6.1.jar
+-rw-rw-r-- 1   46613 Jan 30 17:21 jakarta.activation-api-1.2.2.jar
+-rw-rw-r-- 1   25058 Jan 30 17:21 jakarta.annotation-api-1.3.5.jar
+-rw-rw-r-- 1   18140 Jan 30 17:21 jakarta.inject-2.6.1.jar
+-rw-rw-r-- 1  114065 Jan 30 17:21 jakarta.json-1.1.6-module.jar
+-rw-rw-r-- 1  140425 Jan 30 17:21 jakarta.json-1.1.6.jar
+-rw-rw-r-- 1   43361 Jan 30 17:21 jakarta.json-api-1.1.6.jar
+-rw-rw-r-- 1   35321 Jan 30 17:21 jakarta.json.bind-api-1.0.2.jar
+-rw-rw-r-- 1  164392 Jan 30 17:21 jakarta.persistence-api-2.2.3.jar
+-rw-rw-r-- 1   82872 Jan 30 17:21 jakarta.servlet-api-4.0.3.jar
+-rw-rw-r-- 1   91930 Jan 30 17:21 jakarta.validation-api-2.0.2.jar
+-rw-rw-r-- 1  246372 Jan 30 17:21 jakarta.ws.rs-api-2.1.6-sources.jar
+-rw-rw-r-- 1  115638 Jan 30 17:21 jakarta.xml.bind-api-2.3.3.jar
+-rw-rw-r-- 1  780265 Jan 30 17:21 javassist-3.25.0-GA.jar
+-rw-rw-r-- 1  475256 Jan 30 17:21 org.osgi.core-6.0.0.jar
+-rw-rw-r-- 1   19479 Jan 30 17:21 osgi-resource-locator-1.0.3.jar
+-rw-rw-r-- 1  351302 Jan 30 17:21 yasson-1.0.6.jar
 
 ./Rest Api/jaxrs-ri/lib:
 total 2696
--rw-rw-r-- 1 munashe munashe  251071 Jan 30 17:21 jersey-client.jar
--rw-rw-r-- 1 munashe munashe 1170755 Jan 30 17:21 jersey-common.jar
--rw-rw-r-- 1 munashe munashe   73400 Jan 30 17:21 jersey-container-servlet-core.jar
--rw-rw-r-- 1 munashe munashe   32147 Jan 30 17:21 jersey-container-servlet.jar
--rw-rw-r-- 1 munashe munashe   76791 Jan 30 17:21 jersey-hk2.jar
--rw-rw-r-- 1 munashe munashe   94760 Jan 30 17:21 jersey-media-jaxb.jar
--rw-rw-r-- 1 munashe munashe   26251 Jan 30 17:21 jersey-media-json-binding.jar
--rw-rw-r-- 1 munashe munashe   78844 Jan 30 17:21 jersey-media-sse.jar
--rw-rw-r-- 1 munashe munashe  940932 Jan 30 17:21 jersey-server.jar
+-rw-rw-r-- 1   251071 Jan 30 17:21 jersey-client.jar
+-rw-rw-r-- 1  1170755 Jan 30 17:21 jersey-common.jar
+-rw-rw-r-- 1    73400 Jan 30 17:21 jersey-container-servlet-core.jar
+-rw-rw-r-- 1    32147 Jan 30 17:21 jersey-container-servlet.jar
+-rw-rw-r-- 1    76791 Jan 30 17:21 jersey-hk2.jar
+-rw-rw-r-- 1    94760 Jan 30 17:21 jersey-media-jaxb.jar
+-rw-rw-r-- 1    26251 Jan 30 17:21 jersey-media-json-binding.jar
+-rw-rw-r-- 1    78844 Jan 30 17:21 jersey-media-sse.jar
+-rw-rw-r-- 1   940932 Jan 30 17:21 jersey-server.jar
 
 ./jaxb-ri:
 total 4
-drwxrwxr-x 2 munashe munashe 4096 Jan 30 17:21 mod
+drwxrwxr-x 2  4096 Jan 30 17:21 mod
 
 ./jaxb-ri/mod:
 total 3788
--rw-rw-r-- 1 munashe munashe  311876 Jan 30 17:21 FastInfoset.jar
--rw-rw-r-- 1 munashe munashe  160125 Jan 30 17:21 codemodel.jar
--rw-rw-r-- 1 munashe munashe   59948 Jan 30 17:21 dtd-parser.jar
--rw-rw-r-- 1 munashe munashe   25523 Jan 30 17:21 istack-commons-runtime.jar
--rw-rw-r-- 1 munashe munashe   27596 Jan 30 17:21 istack-commons-tools.jar
--rw-rw-r-- 1 munashe munashe   56674 Jan 30 17:21 javax.activation-api.jar
--rw-rw-r-- 1 munashe munashe  128076 Jan 30 17:21 jaxb-api.jar
--rw-rw-r-- 1 munashe munashe  132058 Jan 30 17:21 jaxb-jxc.jar
--rw-rw-r-- 1 munashe munashe 1093432 Jan 30 17:21 jaxb-runtime.jar
--rw-rw-r-- 1 munashe munashe  986956 Jan 30 17:21 jaxb-xjc.jar
--rw-rw-r-- 1 munashe munashe   15601 Jan 30 17:21 relaxng-datatype.jar
--rw-rw-r-- 1 munashe munashe  317643 Jan 30 17:21 rngom.jar
--rw-rw-r-- 1 munashe munashe   36073 Jan 30 17:21 stax-ex.jar
--rw-rw-r-- 1 munashe munashe   70288 Jan 30 17:21 txw2.jar
--rw-rw-r-- 1 munashe munashe  426721 Jan 30 17:21 xsom.jar
+-rw-rw-r-- 1   311876 Jan 30 17:21 FastInfoset.jar
+-rw-rw-r-- 1   160125 Jan 30 17:21 codemodel.jar
+-rw-rw-r-- 1    59948 Jan 30 17:21 dtd-parser.jar
+-rw-rw-r-- 1    25523 Jan 30 17:21 istack-commons-runtime.jar
+-rw-rw-r-- 1    27596 Jan 30 17:21 istack-commons-tools.jar
+-rw-rw-r-- 1    56674 Jan 30 17:21 javax.activation-api.jar
+-rw-rw-r-- 1   128076 Jan 30 17:21 jaxb-api.jar
+-rw-rw-r-- 1   132058 Jan 30 17:21 jaxb-jxc.jar
+-rw-rw-r-- 1  1093432 Jan 30 17:21 jaxb-runtime.jar
+-rw-rw-r-- 1   986956 Jan 30 17:21 jaxb-xjc.jar
+-rw-rw-r-- 1    15601 Jan 30 17:21 relaxng-datatype.jar
+-rw-rw-r-- 1   317643 Jan 30 17:21 rngom.jar
+-rw-rw-r-- 1    36073 Jan 30 17:21 stax-ex.jar
+-rw-rw-r-- 1    70288 Jan 30 17:21 txw2.jar
+-rw-rw-r-- 1   426721 Jan 30 17:21 xsom.jar
